@@ -69,7 +69,7 @@ target_include_directories(${target}
 target_link_libraries(${target}
     PRIVATE
     ${DEFAULT_LIBRARIES}
-    ${META_PROJECT_NAME}::mylib
+    ${META_PROJECT_NAME}::maze
     ${META_PROJECT_NAME}::baselib
 )
 

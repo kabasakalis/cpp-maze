@@ -48,11 +48,11 @@ if(NOT GIT_SHA1)
     set(GIT_REV "0")
 endif()
 
-# Meta information about the project #### [ADAPT]
-set(META_PROJECT_NAME        "template")
-set(META_PROJECT_DESCRIPTION "CMake Project Template")
+# Meta information about the project
+set(META_PROJECT_NAME        "maze")
+set(META_PROJECT_DESCRIPTION "C++ Maze")
 set(META_AUTHOR_ORGANIZATION "Spiros Kabasakalis")
-set(META_AUTHOR_DOMAIN       "https://github.com/drumaddict/cmake-init/")
+set(META_AUTHOR_DOMAIN       "https://github.com/drumaddict/cpp-maze/")
 set(META_AUTHOR_MAINTAINER   "kabasakalis@gmail.com")
 set(META_VERSION_MAJOR       "0")
 set(META_VERSION_MINOR       "1")

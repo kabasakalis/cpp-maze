@@ -10,7 +10,7 @@ find_package(${META_PROJECT_NAME} REQUIRED HINTS "${CMAKE_CURRENT_SOURCE_DIR}/..
 #
 
 # Target name [ADAPT]
-set(target mylib-test)
+set(target maze-test)
 message(STATUS "Test ${target}")
 
 
@@ -20,7 +20,7 @@ message(STATUS "Test ${target}")
 
 set(sources
     main.cpp
-    mylib_test.cpp
+    maze_test.cpp
 )
 
 
@@ -66,7 +66,7 @@ target_include_directories(${target}
 target_link_libraries(${target}
     PRIVATE
     ${DEFAULT_LIBRARIES}
-    ${META_PROJECT_NAME}::mylib
+    ${META_PROJECT_NAME}::maze
     gmock-dev
 )
 

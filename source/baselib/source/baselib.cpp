@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <template/template-version.h>
+#include <maze/maze-version.h>
 #include <baselib/baselib.h>
 
 
@@ -14,19 +14,18 @@ void printInfo()
 {
     std::string dataPath = "data";
 
-    // Library name [ADAPT] replace TEMPLATE with project id in macros.
     std::cout << "baselib:printInfo" << std::endl;
     std::cout << "PROJECT METADATA" << std::endl;
 
     std::cout << "========================================" << std::endl;
-    std::cout << "Project Name:             " << TEMPLATE_PROJECT_NAME  << std::endl;
-    std::cout << "Project Description:      " << TEMPLATE_PROJECT_DESCRIPTION << std::endl;
-    std::cout << "Author Organization:      " << TEMPLATE_AUTHOR_ORGANIZATION << std::endl;
-    std::cout << "Author Domain:            " << TEMPLATE_AUTHOR_DOMAIN << std::endl;
-    std::cout << "Author Maintainer:        " << TEMPLATE_AUTHOR_MAINTAINER << std::endl;
-    std::cout << "Project Version:          " << TEMPLATE_VERSION << std::endl;
-    std::cout << "Project Name Version:     " << TEMPLATE_NAME_VERSION << std::endl;
-    std::cout << "Project Version Revision: " << TEMPLATE_VERSION_REVISION << std::endl;
+    std::cout << "Project Name:             " << MAZE_PROJECT_NAME  << std::endl;
+    std::cout << "Project Description:      " << MAZE_PROJECT_DESCRIPTION << std::endl;
+    std::cout << "Author Organization:      " << MAZE_AUTHOR_ORGANIZATION << std::endl;
+    std::cout << "Author Domain:            " << MAZE_AUTHOR_DOMAIN << std::endl;
+    std::cout << "Author Maintainer:        " << MAZE_AUTHOR_MAINTAINER << std::endl;
+    std::cout << "Project Version:          " << MAZE_VERSION << std::endl;
+    std::cout << "Project Name Version:     " << MAZE_NAME_VERSION << std::endl;
+    std::cout << "Project Version Revision: " << MAZE_VERSION_REVISION << std::endl;
 
     // Library type (static or dynamic)
     #ifdef BASELIB_STATIC_DEFINE

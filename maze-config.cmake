@@ -8,7 +8,7 @@
 # List of modules [ADAPT]
 set(MODULE_NAMES
     baselib
-    mylib
+    maze
 )
 
 
@@ -50,4 +50,5 @@ else()
 endif()
 
 # Signal success/failure to CMake [ADAPT]
-set(template_FOUND ${MODULE_FOUND})
+set(cppmaze_FOUND ${MODULE_FOUND})
+

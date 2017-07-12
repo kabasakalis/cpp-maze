@@ -1,63 +1,16 @@
-# C++ Project Template
-### Forked and adapted from   [ C++ CMake Project Template](https://github.com/cginternals/cmake-init)
+# C++ Maze
 ----
-I will add my own stuff to this repo and occasionally pull from the upstream.
-### [Setup Guide](https://github.com/cginternals/cmake-init/wiki/Setup-Guide)
-### Usage
-Adapt for your project. For convenience, [ADAPT] markers have been included,
-additionally you can consult the `ADAPT` file for more details.
 
 ### Overview
-cmake-init is a copy and paste template, that provides the following features:
- * Cross Platform
- * Windows
- * Linux
- * Mac
- * Libraries, Applications, Testing template
- * Documentation template
- * Installation, Packaging template
- * CMake find script template for defined libraries
-
-The files of cmake-init are an instantiation of the templates containing:
-  * Example app
-  * Example lib
-  * Example test
-  * Example documentation
-  * Example package
+C++ Maze
 
 | Service | System | Compiler | Status |
 | ------- | ------ | -------- | -----: |
-|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-template) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Build Status](https://travis-ci.org/drumaddict/cpp-template.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-template) |
-|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-template) | macOS | AppleClang 7.3 | [![Build Status](https://travis-ci.org/drumaddict/cpp-template.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-template) |
-|  [Coverity](https://scan.coverity.com/projects/drumaddict-cpp-template) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Coverity Build Status](https://scan.coverity.com/projects/13112/badge.svg)](https://scan.coverity.com/projects/drumaddict-cpp-template) |
-|  [CodeCov](https://codecov.io/gh/drumaddict/cpp-template) |   |  | [![Test Coverage](https://codecov.io/gh/drumaddict/cpp-template/branch/master/graph/badge.svg)](https://codecov.io/gh/drumaddict/cpp-template) |
-|  [Codedocs](https://codedocs.xyz/drumaddict/cpp-template/) |    |   | [![Documentation](https://codedocs.xyz/drumaddict/cpp-template.svg)](https://codedocs.xyz/drumaddict/cpp-template/) |
-
-###  Scenarios covered in cmake-init:
-
-##### 1.  Development
-The project is contained in a source directory for active development.
-
-```
-binaries: ./build
-rpath:    absolute paths to all dependencies
-datapath: ..
-```
-##### 2.  Installation (default)
-The project is contained in a source directory for active development.
-```
-binaries: ./bin
-rpath:    $ORIGIN/../lib
-datapath: ..
-```
-
-##### 3.  Installation (unix system install)
-The project is contained in a source directory for active development.
-```
-binaries: /usr/[local/]bin
-rpath:    empty
-datapath: /usr/[local/]share/<projectname>
-```
+|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) |
+|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | macOS | AppleClang 7.3 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) |
+|  [Coverity](https://scan.coverity.com/projects/drumaddict-cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Coverity Build Status](https://scan.coverity.com/projects/13112/badge.svg)](https://scan.coverity.com/projects/drumaddict-cpp-maze) |
+|  [CodeCov](https://codecov.io/gh/drumaddict/cpp-maze) |   |  | [![Test Coverage](https://codecov.io/gh/drumaddict/cpp-maze/branch/master/graph/badge.svg)](https://codecov.io/gh/drumaddict/cpp-maze) |
+|  [Codedocs](https://codedocs.xyz/drumaddict/cpp-maze/) |    |   | [![Documentation](https://codedocs.xyz/drumaddict/cpp-maze.svg)](https://codedocs.xyz/drumaddict/cpp-maze/) |
 
 ## References
 * [C++ Best Practices by Jason Turner](https://lefticus.gitbooks.io/cpp-best-practices/content/)

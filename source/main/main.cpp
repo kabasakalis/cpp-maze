@@ -2,13 +2,13 @@
 #include <iostream>
 
 #include <baselib/baselib.h>
-#include <mylib/mylib.h>
+#include <maze/maze.h>
 
 int main(int /*argc*/, char* /*argv*/[])
 {
     // Print library info
     baselib::printInfo();
-    mylib::printMyLib();
+    maze::printMaze();
     std::cout << std::endl;
 
     // Main

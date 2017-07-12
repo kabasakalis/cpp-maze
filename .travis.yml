@@ -50,7 +50,7 @@ branches:
 addons:
   coverity_scan:
     project:
-      name: "drumaddict/cpp-template"
+      name: "drumaddict/cpp-maze"
       description: "Build submitted via Travis CI"
     notification_email: kabasakalis@gmail.com
     build_command_prepend: "cd ."

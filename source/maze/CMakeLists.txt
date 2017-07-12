@@ -11,7 +11,7 @@
 #
 
 # Target name [ADAPT]
-set(target mylib)
+set(target maze)
 
 # Exit here if required dependencies are not met
 message(STATUS "Lib ${target}")
@@ -33,11 +33,11 @@ set(include_path "${CMAKE_CURRENT_SOURCE_DIR}/include/${target}")
 set(source_path  "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
 set(headers
-    ${include_path}/mylib.h
+    ${include_path}/maze.h
 )
 
 set(sources
-    ${source_path}/MyLib.cpp
+  ${source_path}/maze.cpp
 )
 
 # Group source files
