@@ -115,6 +115,8 @@ set_target_properties(${target}
 # Include directories
 #
 
+find_package(Boost CONFIG REQUIRED)
+
 target_include_directories(${target}
     PRIVATE
     ${PROJECT_BINARY_DIR}/source/include
@@ -123,6 +125,7 @@ target_include_directories(${target}
 
     PUBLIC
     ${DEFAULT_INCLUDE_DIRECTORIES}
+    ${Boost_INCLUDE_DIRS}          #Boost
 
     INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -134,7 +137,6 @@ target_include_directories(${target}
 #
 # Libraries
 #
-
 target_link_libraries(${target}
     PRIVATE
 

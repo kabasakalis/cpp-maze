@@ -36,6 +36,13 @@ include(cmake/GetGitRevisionDescription.cmake)
 include(cmake/HealthCheck.cmake)
 include(cmake/GenerateTemplateExportHeader.cmake)
 
+# HunterGate
+include(cmake/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.19.36.tar.gz"
+    SHA1 "db6f5483795c56968fe628b3cc9791ec6627bdfc"
+)
+
 
 #
 # Project description and (meta) information
@@ -88,6 +95,10 @@ set(IDE_FOLDER "")
 
 # Declare project
 project(${META_PROJECT_NAME} C CXX)
+
+
+# Add Hunter Packages
+hunter_add_package(Boost COMPONENTS)
 
 # Set output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
