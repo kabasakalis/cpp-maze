@@ -1,41 +1,33 @@
-
 #pragma once
+//#ifndef MAZE_H
+//#define MAZE_H
 
+//#include <memory>  // unique_ptr
 #include <maze/maze_api.h>
-
+#include <string>
 namespace maze {
 
-/**
-*  @brief
-*    Maze
-*/
-class MAZE_API Maze {
-   public:
-    /**
-    *  @brief
-    *    Constructor
-    */
-    Maze();
+class MAZE_API Maze final {
+  public:
+    explicit Maze();                                 // default constructor
+    explicit Maze( const std::string );             // constructor
 
-    /**
-    *  @brief
-    *    Destructor
-    */
-    virtual ~Maze();
+    //virtual ~Maze();                               // dtor
+    //Maze(const Maze& rhs);                         // copy constructor
+    //Maze& operator=(const Maze& rhs);              // copy assignment
+    //Maze(Maze&& rhs);                              // move constructor
+    //Maze& operator=(Maze&& rhs );                  // move assignment
 
-    /**
-    *  @brief
-    *    Print Maze
-    *
-    */
+    //Member functions
+
     MAZE_API int returnOne();
-};
 
-/**
-*  @brief
-*    Print Maze
-*
-*/
+  private:
+    std::string mString;
+  };
+
 MAZE_API void printMaze();
 
-}  // namespace cppmaze
+}  // namespace maze
+
+//#endif /* MAZE_H */

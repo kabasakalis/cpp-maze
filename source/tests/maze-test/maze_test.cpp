@@ -10,7 +10,5 @@ public:
 TEST_F(maze_test, ReturnOne)
 {
     maze::Maze m;
-
-    EXPECT_EQ((unsigned int)1, m.returnOne());
-    // ...
+    EXPECT_EQ( static_cast<int>(1), m.returnOne());
 }
