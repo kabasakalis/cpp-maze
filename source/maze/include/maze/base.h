@@ -2,7 +2,10 @@
 
 #include <maze/maze_api.h>
 #include <map>
+#include <ostream>
+// #include "maze/room.h"
 namespace maze {
+class Room; //forward declaration
 
 const int ROWS_MIN = 1;
 const int ROWS_MAX = 40;
@@ -17,4 +20,11 @@ struct Position {int x; int y;};
 
 MAZE_API void printMaze();
 MAZE_API void testfunction();
+
+
+
 }  // namespace maze
+
+MAZE_API  std::ostream& operator<< (std::ostream& stream, const maze::Position&);
+MAZE_API  std::ostream& operator<< (std::ostream& stream, const maze::Room&);
+

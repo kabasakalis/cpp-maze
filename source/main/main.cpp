@@ -20,6 +20,9 @@ int main(int /*argc*/, char* /*argv*/ []) {
    std::cout << "room p y: "<< r.position().y << std::endl;
    std::cout << "room x: "<< r.x() << std::endl;
    std::cout << "room y: "<< r.y() << std::endl;
+ std::cout << p <<  std::endl;
+ std::cout << r <<  std::endl;
+//  std::cout << r <<  std::endl;
     // std::cout << ROWS_MAX << std::endl;
   // std::cout <<  Directions::LEFT<< std::endl;
   // std::cout <<  int(Direction::UP)<< std::endl;
