@@ -33,10 +33,12 @@ set(include_path "${CMAKE_CURRENT_SOURCE_DIR}/include/${target}")
 set(source_path  "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
 set(headers
+    ${include_path}/base.h
     ${include_path}/maze.h
 )
 
 set(sources
+  ${source_path}/base.cpp
   ${source_path}/maze.cpp
 )
 

@@ -26,7 +26,6 @@ class MAZE_API Maze final {
     std::string mString;
   };
 
-MAZE_API void printMaze();
 
 }  // namespace maze
 
