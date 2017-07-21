@@ -10,7 +10,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
   std::cout << "========================================" << std::endl;
   printMaze();
   testfunction();
-
+    std::cout << ROWS_MAX << std::endl;
   // std::cout <<  Directions::LEFT<< std::endl;
   // std::cout <<  int(Direction::UP)<< std::endl;
   // std::cout <<  opposite_direction[Direction::LEFT]<< std::endl;
