@@ -61,13 +61,13 @@ const std::map<long, std::vector<Direction>> Room::times_used_to_exits() const {
   return times_used_to_exits;
 }
 
-std::vector<Direction>& Room::less_used_available_exits() {
+std::vector<Direction> Room::less_used_available_exits() {
   std::vector<long> keys;
   // Retrieve all keys
   boost::copy(Room::times_used_to_exits() | boost::adaptors::map_keys,
               std::back_inserter(keys));
 
-  auto less_used_frequency = *std::max_element(keys.begin(), keys.end());
+  auto less_used_frequency = *std::min_element(keys.begin(), keys.end());
   auto tmo = times_used_to_exits();
   return tmo[less_used_frequency];
 }

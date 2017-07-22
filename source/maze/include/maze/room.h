@@ -26,7 +26,7 @@ class MAZE_API Room final {
   MAZE_API bool is_exit_free(const Direction& ) const;
   MAZE_API bool visited() const;
   MAZE_API const std::map<long, std::vector<Direction>> times_used_to_exits() const;
-  MAZE_API std::vector<Direction>& less_used_available_exits() ;
+  MAZE_API std::vector<Direction> less_used_available_exits() ;
 
 
 
