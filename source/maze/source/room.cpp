@@ -1,7 +1,11 @@
 
-//#include <memory>  // unique_ptr
 #include "maze/room.h"
+#include <memory>  // unique_ptr
+
 #include <algorithm>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/copy.hpp>
+#include <iostream>
 namespace maze {
 
 // Default constructor
@@ -43,10 +47,29 @@ bool Room::is_exit_free(const Direction& exit) const {
 
 bool Room::visited() const { return !_visits_from.empty() ? true : false; }
 
-const std::map<int, Direction>& Room::times_used_to_exits() const {
-  // return std::map<int, Direction> opposite_direction{
-   // return   static_cast<std::map<int, Direction>>(std::make_pair(10, Direction::RIGHT));
-// }
+// def times_used_to_exits
+//   available_exits.group_by do |exit|
+//     used_exits.count(exit)
+//   end
+// end
+const std::map<long, std::vector<Direction>> Room::times_used_to_exits() const {
+  std::map<long, std::vector<Direction>> times_used_to_exits;
+  for (auto direction : _available_exits) {
+    auto cnt = count(_used_exits.begin(), _used_exits.end(), direction);
+    times_used_to_exits[cnt].push_back(direction);
+  };
+  return times_used_to_exits;
+}
+
+std::vector<Direction>& Room::less_used_available_exits() {
+  std::vector<long> keys;
+  // Retrieve all keys
+  boost::copy(Room::times_used_to_exits() | boost::adaptors::map_keys,
+              std::back_inserter(keys));
+
+  auto less_used_frequency = *std::max_element(keys.begin(), keys.end());
+  auto tmo = times_used_to_exits();
+  return tmo[less_used_frequency];
 }
 
 }  // namespace room

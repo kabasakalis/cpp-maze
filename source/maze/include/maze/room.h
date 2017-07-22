@@ -3,7 +3,7 @@
 //#ifndef ROOM_H
 //#define ROOM_H
 
-//#include <memory>  // unique_ptr
+#include <memory>  // unique_ptr
 #include <maze/maze_api.h>
 #include <vector>
 #include <map>
@@ -25,16 +25,12 @@ class MAZE_API Room final {
   MAZE_API const std::vector<Direction>& used_exits() const;
   MAZE_API bool is_exit_free(const Direction& ) const;
   MAZE_API bool visited() const;
-  MAZE_API const std::map<int, Direction>& times_used_to_exits() const;
+  MAZE_API const std::map<long, std::vector<Direction>> times_used_to_exits() const;
+  MAZE_API std::vector<Direction>& less_used_available_exits() ;
 
 
-  //
-  // def times_used_to_exits
-  //   available_exits.group_by do |exit|
-  //     used_exits.count(exit)
-  //   end
-  // end
-  //
+
+
   // def less_used_available_exits
   //   times_used_to_exits[times_used_to_exits.keys.min]
   // end
@@ -43,13 +39,13 @@ class MAZE_API Room final {
   //   times_used_to_exits[0] || []
   // end
 
+  std::vector<Direction> _visits_from;
+  std::vector<Direction> _used_exits;
+  std::vector<Direction> _available_exits;
  private:
   int _x;
   int _y;
   Position _position;
-  std::vector<Direction> _visits_from;
-  std::vector<Direction> _available_exits;
-  std::vector<Direction> _used_exits;
 };
 
 }  // namespace room

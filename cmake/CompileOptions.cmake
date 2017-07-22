@@ -19,7 +19,7 @@ endif()
 
 set(DEFAULT_PROJECT_OPTIONS
     DEBUG_POSTFIX             "d"
-    CXX_STANDARD              11 # Not available before CMake 3.1; see below for manual command line argument addition
+    CXX_STANDARD              14 # Not available before CMake 3.1; see below for manual command line argument addition
     LINKER_LANGUAGE           "CXX"
     POSITION_INDEPENDENT_CODE ON
     CXX_VISIBILITY_PRESET     "hidden"
@@ -130,7 +130,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCH
         #  Jason Turner's best practices flags. https://lefticus.gitbooks.io/cpp-best-practices/content/02-Use_the_Tools_Available.html
         -Wshadow
         -Wnon-virtual-dtor
-        -Wold-style-cast
+        # -Wold-style-cast
         -Wcast-align
         -Woverloaded-virtual
         -Wconversion
