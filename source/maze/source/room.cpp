@@ -67,9 +67,9 @@ std::vector<Direction> Room::less_used_available_exits() {
 }
 
 boost::optional<std::vector<Direction>> Room::unused_available_exits() {
-  auto tutoe = times_used_to_exits();
-  auto it = tutoe.find(0);
-  if (it != tutoe.end()) {
+  auto _times_used_to_exits = times_used_to_exits();
+  auto it = _times_used_to_exits.find(0);
+  if (it != _times_used_to_exits.end()) {
     return it->second;
   }
   return boost::none;
