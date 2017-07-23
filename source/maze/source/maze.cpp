@@ -1,38 +1,38 @@
-#include <memory>  // unique_ptr
 #include "maze/maze.h"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
-#include "boost/multi_array.hpp"
+#include <memory>  // unique_ptr
+#include "maze/room.h"
+// #include "boost/multi_array.hpp"
 namespace maze {
 
-  // Default constructor
-  Maze::Maze() {}
+// Constructor
+Maze::Maze(int rows = 10, int columns = 10) {
+  for (int x = 0; i < rows; ++x) {
+    for (int y = 0; y < columns; ++y) {
+      Position position{x, y};
+      Room room{position};
+      rooms.push_back(room);
+    }
+  }
+}
 
-  // Constructor
-  Maze::Maze(std::string string_)
-    : mString{string_}
-    {}
+auto Maze::find_room(Position& position) {
+  auto it = find_if(rooms.begin(), rooms.end(), [position](const Room& room) {
+    return room.position == position;
+  });
+  if (it != rooms.end()) return **it;
+  return boost::none;
+};
 
+auto Maze::find_room(int x, int y) {
+  Position position{x, y};
+  find_room(position);
+};
 
-  int Maze::returnOne() { return 1; }
+auto Maze::all_rooms_visited(){
+    return std::all_of(rooms.begin(), rooms.end(),
+                       [](Room room) { room.visited(); })};
 
-  // Special Member functions
-
-  //virtual Maze()::~Maze() = default                   // dtor
-  //Maze::Maze(const Maze& rhs) = default;                   // copy constructor
-  //Maze& Maze::operator=(const Maze& rhs) = default;         // copy assignment
-  //Maze::Maze(Maze&& rhs) = default;                         // move constructor
-  //Maze& Maze::operator=(Maze&& rhs ) = default;             // move assignment
-
-
-  //
-  // SharedResource& Maze::get_SharedResource(){
-  //   return m_SharedResource*;
-  // }
-  //
-  // const std::string& Maze::get_string(){
-  //   return mString;
-  // }
-
-} // namespace maze
-
+}  // namespace maze

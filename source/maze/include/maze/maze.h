@@ -1,32 +1,22 @@
 #pragma once
-//#ifndef MAZE_H
-//#define MAZE_H
-
-//#include <memory>  // unique_ptr
 #include <maze/maze_api.h>
 #include <string>
+#include <vector>
+#include "maze/room.h"
+#include <boost/optional.hpp>
+
 namespace maze {
 
 class MAZE_API Maze final {
   public:
-    explicit Maze();                                 // default constructor
-    explicit Maze( const std::string );             // constructor
-
-    //virtual ~Maze();                               // dtor
-    //Maze(const Maze& rhs);                         // copy constructor
-    //Maze& operator=(const Maze& rhs);              // copy assignment
-    //Maze(Maze&& rhs);                              // move constructor
-    //Maze& operator=(Maze&& rhs );                  // move assignment
-
-    //Member functions
-
-    MAZE_API int returnOne();
-
+    explicit Maze( int rows, int columns);             // constructor
+      MAZE_API boost::optional<Room> find_room(Position&  position) const;
+      MAZE_API const Room& find_room(int x, int y) const ;
+      MAZE_API bool all_rooms_visited() const;
   private:
-    std::string mString;
+    std::vector<Room> rooms;
+    std::int rows;
+    std::int columns;
   };
 
-
 }  // namespace maze
-
-//#endif /* MAZE_H */

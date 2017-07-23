@@ -28,8 +28,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
   r._visits_from = {Direction::LEFT, Direction::LEFT, Direction::RIGHT,
                     Direction::UP,   Direction::UP,   Direction::UP,
                     Direction::UP};
-  r._available_exits = {Direction::LEFT, Direction::RIGHT, Direction::UP,
-                        Direction::DOWN};
+  r._available_exits = {Direction::LEFT, Direction::RIGHT, Direction::UP};
   r._used_exits = {Direction::RIGHT, Direction::RIGHT, Direction::LEFT,
                    Direction::UP, Direction::UP};
   // Direction::DOWN, Direction::DOWN, Direction::DOWN, Direction::DOWN};
@@ -41,6 +40,9 @@ int main(int /*argc*/, char* /*argv*/ []) {
 
   logVar(p, "Point Test");
   logVar(r, "Room Test");
+  logVar(r.visited(), "Room visited");
+  std::cout << std::boolalpha << r.visited() << std::endl;
+  std::cout << std::boolalpha << r.is_exit_free(Direction::LEFT) << std::endl;
   logVar(Direction::UP, "Dire");
   logDirVector(DIRECTIONS, "DIRECTIONS");
   logDirVector(r._used_exits, "USED EXITS");
