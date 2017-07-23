@@ -54,18 +54,22 @@ int main(int /*argc*/, char * /*argv*/ []) {
   // logDirVector(r.unused_available_exits(), "UNUSED AVAILA");
 if( r.unused_available_exits() != boost::none){
 
-  logVar(r.unused_available_exits()->at(0),  "UNUSED AVAILAVLE");
+boost::optional<std::vector<Direction>> a = r.unused_available_exits();
+  std::vector<Direction> v = *a;
+  logDirVector( v,  "UNUSED AVAILAVLE");
+  logVar(v.at(0),  "FIRST UNUSED");
+  // std::cout << v[2];
+  logVar(r.unused_available_exits()->size(),  "SIZE UNUSED AVAILAVLE");
 
    std::cout << r.unused_available_exits()->at(0)<< std::endl;
    std::cout << r.unused_available_exits()->front()<< std::endl;
-  // logVar(r.unused_available_exits()->size(),  "SIZE UNUSED AVAILAVLE");
    // auto it = r.times_used_to_exits().find(0);
    // std::cout << (it != r.times_used_to_exits().end())<< std::endl;
    // std::cout << boost::none;
    // std::cout << r.unused_available_exits()->kl1<< std::endl;
 }else {
 
-  logVar( 1, "NULL");
+  logVar( "asdf", "");
 };
 
 // logDirVector(r.times_used_to_exits().at(0), "");

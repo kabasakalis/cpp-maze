@@ -61,20 +61,18 @@ std::vector<Direction> Room::less_used_available_exits() {
   std::vector<long> frequencies;
   boost::copy(Room::times_used_to_exits() | boost::adaptors::map_keys,
               std::back_inserter(frequencies));
-  auto less_used_frequency = *std::min_element(frequencies.begin(), frequencies.end());
+  auto less_used_frequency =
+      *std::min_element(frequencies.begin(), frequencies.end());
   return times_used_to_exits().at(less_used_frequency);
 }
 
 boost::optional<std::vector<Direction>> Room::unused_available_exits() {
-
-auto it = times_used_to_exits().find(0);
-    if (it != times_used_to_exits().end()) {
-        return it->second;
-    }
-    return boost::none;
+  auto tutoe = times_used_to_exits();
+  auto it = tutoe.find(0);
+  if (it != tutoe.end()) {
+    return it->second;
+  }
+  return boost::none;
 }
-
-
-
 
 }  // namespace room
