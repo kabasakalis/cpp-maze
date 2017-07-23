@@ -4,6 +4,8 @@
 #include <baselib/baselib.h>
 #include "maze/base.h"
 #include "maze/room.h"
+
+#include <boost/optional/optional_io.hpp>
 // #include "maze/utils.h"
 using namespace maze;
 using namespace utils;
@@ -27,8 +29,8 @@ int main(int /*argc*/, char * /*argv*/ []) {
     Direction::UP, Direction::UP, Direction::UP, Direction::UP};
   r._available_exits = {Direction::LEFT, Direction::RIGHT, Direction::UP, Direction::DOWN};
   r._used_exits = { Direction::RIGHT, Direction::RIGHT,
-    Direction::LEFT, Direction::UP,    Direction::UP,
-    Direction::DOWN, Direction::DOWN, Direction::DOWN, Direction::DOWN};
+    Direction::LEFT, Direction::UP,    Direction::UP};
+    // Direction::DOWN, Direction::DOWN, Direction::DOWN, Direction::DOWN};
 
   auto times_used_to_exits = r.times_used_to_exits();
   std::vector<Room> vr{r, r2};
@@ -46,7 +48,30 @@ int main(int /*argc*/, char * /*argv*/ []) {
   logDirVector(r._visits_from,  "VISITS FROM");
   auto luae  = r.less_used_available_exits();
 
-  logDirVector(luae, "LESS USED DIRECTIONS");
+  logDirVector(luae, "LES USED DIRECTIONS");
+
+  std::cout << r.times_used_to_exits().at(0)[0]<< std::endl;
+  // logDirVector(r.unused_available_exits(), "UNUSED AVAILA");
+if( r.unused_available_exits() != boost::none){
+
+  logVar(r.unused_available_exits()->at(0),  "UNUSED AVAILAVLE");
+
+   std::cout << r.unused_available_exits()->at(0)<< std::endl;
+   std::cout << r.unused_available_exits()->front()<< std::endl;
+  // logVar(r.unused_available_exits()->size(),  "SIZE UNUSED AVAILAVLE");
+   // auto it = r.times_used_to_exits().find(0);
+   // std::cout << (it != r.times_used_to_exits().end())<< std::endl;
+   // std::cout << boost::none;
+   // std::cout << r.unused_available_exits()->kl1<< std::endl;
+}else {
+
+  logVar( 1, "NULL");
+};
+
+// logDirVector(r.times_used_to_exits().at(0), "");
+
+  // std::cout << r.unused_available_exits()<< std::endl;
+
 
   return 0;
 }

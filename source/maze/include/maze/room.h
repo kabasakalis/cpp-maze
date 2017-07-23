@@ -8,6 +8,8 @@
 #include <vector>
 #include <map>
 #include "maze/base.h"
+#include <boost/optional.hpp>
+
 namespace maze {
 
 class MAZE_API Room final {
@@ -27,6 +29,7 @@ class MAZE_API Room final {
   MAZE_API bool visited() const;
   MAZE_API const std::map<long, std::vector<Direction>> times_used_to_exits() const;
   MAZE_API std::vector<Direction> less_used_available_exits() ;
+  MAZE_API boost::optional<std::vector<Direction>>  unused_available_exits() ;
 
 
 
