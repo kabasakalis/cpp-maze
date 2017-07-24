@@ -9,14 +9,21 @@ namespace maze {
 
 class MAZE_API Maze final {
   public:
-    explicit Maze( int rows, int columns);             // constructor
-      MAZE_API boost::optional<Room> find_room(Position&  position) const;
-      MAZE_API const Room& find_room(int x, int y) const ;
-      MAZE_API bool all_rooms_visited() const;
+    explicit Maze( int rows = 10, int columns = 10);             // constructor
+      // MAZE_API boost::optional<Room> find_room(Position&  position) const;
+      boost::optional<const Room&>
+      find_room(Position&  position) const;
+
+      boost::optional<const Room&>
+      find_room(int x, int y) const ;
+
+      auto all_rooms_visited() const;
+
+      const std::vector<Room>& rooms() const;
   private:
-    std::vector<Room> rooms;
-    std::int rows;
-    std::int columns;
+    std::vector<Room> _rooms;
+    int _rows;
+    int _columns;
   };
 
 }  // namespace maze

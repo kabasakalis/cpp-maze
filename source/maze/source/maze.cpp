@@ -8,31 +8,38 @@
 namespace maze {
 
 // Constructor
-Maze::Maze(int rows = 10, int columns = 10) {
-  for (int x = 0; i < rows; ++x) {
-    for (int y = 0; y < columns; ++y) {
+Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
+  for (int x = 0; x < _rows; ++x) {
+    for (int y = 0; y < _columns; ++y) {
       Position position{x, y};
       Room room{position};
-      rooms.push_back(room);
+      _rooms.push_back(room);
     }
   }
 }
 
-auto Maze::find_room(Position& position) {
-  auto it = find_if(rooms.begin(), rooms.end(), [position](const Room& room) {
-    return room.position == position;
+boost::optional<const Room&>
+Maze::find_room(Position& position) const {
+  auto it = find_if(_rooms.begin(), _rooms.end(), [position](const Room& room) {
+    return room.position() == position;
   });
-  if (it != rooms.end()) return **it;
+  if (it != _rooms.end()) return *it;
   return boost::none;
 };
 
-auto Maze::find_room(int x, int y) {
+boost::optional<const Room&>
+Maze::find_room(int x, int y) const {
   Position position{x, y};
-  find_room(position);
+ return  find_room(position);
 };
 
-auto Maze::all_rooms_visited(){
-    return std::all_of(rooms.begin(), rooms.end(),
-                       [](Room room) { room.visited(); })};
+auto Maze::all_rooms_visited() const{
+    return std::all_of(_rooms.begin(), _rooms.end(),
+                       [](Room room) { return room.visited(); });};
+
+
+const std::vector<Room>&
+Maze::rooms() const { return _rooms;}
+
 
 }  // namespace maze

@@ -4,6 +4,7 @@
 #include <baselib/baselib.h>
 #include "maze/base.h"
 #include "maze/room.h"
+#include "maze/maze.h"
 
 #include <boost/optional/optional_io.hpp>
 // #include "maze/utils.h"
@@ -57,6 +58,18 @@ int main(int /*argc*/, char* /*argv*/ []) {
   };
 
 
+
+    Maze maze;
+    logVar(maze.rooms().size(), "Rooms size");
+    logVar(maze.rooms().front(), "First  room");
+    logVar(maze.rooms().back(), "Last  room");
+
+    auto r44 = maze.find_room(4,4);
+    auto r_no = maze.find_room(11,122);
+
+    logVar(*r44, "Room at 4,4");
+    // logVar(r_no, "No Room");
+    logVar(r_no == boost::none, "No Room");
 
 
 

@@ -8,6 +8,12 @@ namespace maze {
 void testfunction() { std::cout << "testfunction ran" << std::endl; }
 void printMaze() { std::cout << "maze::printMaze" << std::endl; }
 
+
+
+bool Position::operator==(const Position &rhs) const {
+ return (x == rhs.x && y == rhs.y);
+};
+
 std::map<Direction, Direction> opposite_direction{
     {Direction::LEFT, Direction::RIGHT},
     {Direction::RIGHT, Direction::LEFT},
@@ -46,3 +52,6 @@ std::ostream& operator<<(std::ostream& stream,
   std::cout << maze::direction_name[direction];
   return stream;
 }
+
+
+

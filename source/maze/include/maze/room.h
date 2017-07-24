@@ -19,9 +19,9 @@ class MAZE_API Room final {
 
   // Getter functions
 
-  const Position& position() const;
   MAZE_API const int& x() const;
   MAZE_API const int& y() const;
+  MAZE_API const Position& position() const;
   MAZE_API const std::vector<Direction>& visits_from() const;
   MAZE_API const std::vector<Direction>& available_exits() const;
   MAZE_API const std::vector<Direction>& used_exits() const;

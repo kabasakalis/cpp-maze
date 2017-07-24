@@ -18,7 +18,10 @@ enum Direction { LEFT, RIGHT, UP, DOWN };
 const std::vector<Direction> DIRECTIONS{
     {Direction::LEFT, Direction::RIGHT, Direction::UP, Direction::DOWN}};
 
-struct Position { int x, y;};
+struct Position {
+  int x, y;
+  bool operator==(const Position &rhs) const;
+};
 
 MAZE_API void printMaze();
 MAZE_API void testfunction();
