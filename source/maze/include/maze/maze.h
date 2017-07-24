@@ -20,6 +20,8 @@ class MAZE_API Maze final {
       auto all_rooms_visited() const;
 
       const std::vector<Room>& rooms() const;
+      const int& rows() const;
+      const int& columns() const;
   private:
     std::vector<Room> _rooms;
     int _rows;

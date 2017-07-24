@@ -41,5 +41,8 @@ auto Maze::all_rooms_visited() const{
 const std::vector<Room>&
 Maze::rooms() const { return _rooms;}
 
+const int& Maze::rows() const { return _rows; }
+const int& Maze::columns() const {return _columns;}
+
 
 }  // namespace maze
