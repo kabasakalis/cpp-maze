@@ -19,7 +19,7 @@ Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
 }
 
 boost::optional<const Room&>
-Maze::find_room(Position& position) const {
+Maze::find_room(const Position& position) const {
   auto it = find_if(_rooms.begin(), _rooms.end(), [position](const Room& room) {
     return room.position() == position;
   });

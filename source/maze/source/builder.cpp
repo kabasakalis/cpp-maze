@@ -1,54 +1,55 @@
 
 //#include <memory>  // unique_ptr
-#include "builder/builder.h"
+#include "maze/builder.h"
 #include <algorithm>
 #include <boost/optional.hpp>
 #include <random>
+#include <chrono>
 namespace maze {
 
-// Default constructor
-Builder::Builder() {}
 
 // Constructor
 Builder::Builder(const Maze& maze) : _maze{maze} {
-    Position start{ _random_integer(0, _maze.rows()), _random_integer(0, _maze.columns()};
+    Position start{ _random_integer(0, _maze.rows()), _random_integer(0, _maze.columns())};
     _path.push_back(std::move(start));
     _visited_positions.push_back(std::move(start));
 }
 
-const int Builder::_random_integer(int lower, int upper) const {
-  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+int Builder::_random_integer(int lower, int upper) const {
+  auto  seed = std::chrono::system_clock::now().time_since_epoch().count();
   std::default_random_engine generator(seed);
   std::uniform_int_distribution<int> distribution(lower, upper);
   return distribution(generator);
 }
 
 auto Builder::current_position() const {
-  return *(_visited_positions.rbegin()[0]);
+  // return *(_visited_positions.rbegin())[0];
+  return _visited_positions.rbegin()[0];
 }
 auto Builder::previous_position() const {
-  return *(_visited_positions.rbegin()[1]);
+  return _visited_positions.rbegin()[1];
 }
-void Builder::go_back_to_previous_visited_room() const {
-  if
-    !_visited_positions.empty() _visited_positions.pop_back();
+void Builder::go_back_to_previous_visited_room() {
+  if (!_visited_positions.empty()) _visited_positions.pop_back();
 }
-boost::optional<std::vector<Room>> Builder::room(
+boost::optional<const Room&> Builder::room(
     const Position& position) const {
-  return _maze.find_room(position)
+  return _maze.find_room(position);
 }
 
-boost::optional<std::vector<Room>> Builder::current_room(
-    const Position& position) const { return room(current_position
-}
-boost::optional<std::vector<Position>> Builder::next_position(
+boost::optional<const Room&> Builder::current_room(
+    const Position& position) const { return room(current_position());}
+
+
+boost::optional<const Position&> Builder::next_position(
     const Direction& direction, const Position& position) const {
+  boost::optional<Position> next;
   switch (direction) {
     case Direction::LEFT: {
       if (position.x - 1 >= 1) {
         Position next{position.x - 1, position.y};
       } else {
-        auto next = boost::none;
+         next = boost::none;
       }
       break;
     }
@@ -56,7 +57,7 @@ boost::optional<std::vector<Position>> Builder::next_position(
       if (position.x + 1 <= _maze.columns()) {
         Position next{position.x + 1, position.y};
       } else {
-        auto next = boost::none;
+       next = boost::none;
       }
       break;
     }
@@ -64,7 +65,7 @@ boost::optional<std::vector<Position>> Builder::next_position(
       if (position.y + 1 <= _maze.rows()) {
         Position next{position.x, position.y + 1};
       } else {
-        auto next = boost::none;
+         next = boost::none;
       }
       break;
     }
@@ -72,18 +73,18 @@ boost::optional<std::vector<Position>> Builder::next_position(
       if (position.y - 1 >= 1) {
         Position next{position.x, position.y - 1};
       } else {
-        auto next = boost::none;
+         next = boost::none;
       }
       break;
     }
-    default: { auto next = boost::none; }
+    default: {  next = boost::none; }
   }
   return next;
 }
 
-boost::optional<std::vector<Room>> Builder::room_to_left(
-    const Position& position) const {
-  return room(next_position(Direction::LEFT, Builder::current_position()));
+boost::optional<const Room&> Builder::room_to_left() const {
+  boost::optional<const Position&> _next_position = next_position(Direction::LEFT, Builder::current_position());
+  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
 }
 
 boost::optional<std::vector<Room>> Builder::room_to_right(

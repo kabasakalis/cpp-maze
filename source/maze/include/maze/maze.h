@@ -12,7 +12,7 @@ class MAZE_API Maze final {
     explicit Maze( int rows = 10, int columns = 10);             // constructor
       // MAZE_API boost::optional<Room> find_room(Position&  position) const;
       boost::optional<const Room&>
-      find_room(Position&  position) const;
+      find_room(const Position& position) const;
 
       boost::optional<const Room&>
       find_room(int x, int y) const ;
