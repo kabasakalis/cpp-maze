@@ -20,19 +20,19 @@ class MAZE_API Builder {
   std::vector<Position> _path;
   std::vector<Position> _visited_positions;
 
-  auto current_position() const;
+  const Position& current_position() const;
   auto previous_position() const;
   void go_back_to_previous_visited_room();
 
   MAZE_API boost::optional<const Room&> room(const Position&) const;
   MAZE_API boost::optional<const Room&> current_room(const Position&) const;
-  MAZE_API boost::optional<const Position&> next_position(const Direction&,
+  MAZE_API boost::optional<const Position> next_position(const Direction&,
                                                        const Position&) const;
 
   MAZE_API boost::optional<const Room&> room_to_left() const;
-  MAZE_API boost::optional<std::vector<Room>> room_to_right() const;
-  MAZE_API boost::optional<std::vector<Room>> room_to_up() const;
-  MAZE_API boost::optional<std::vector<Room>> room_to_down() const;
+  MAZE_API boost::optional<const Room&> room_to_right() const;
+  MAZE_API boost::optional<const Room&> room_to_up() const;
+  MAZE_API boost::optional<const Room&> room_to_down() const;
 
   MAZE_API boost::optional<Direction> determine_direction(const Room& next_room) const;
   MAZE_API std::vector<Room> valid_rooms_to_build() const;

@@ -22,7 +22,7 @@ int Builder::_random_integer(int lower, int upper) const {
   return distribution(generator);
 }
 
-auto Builder::current_position() const {
+const Position& Builder::current_position() const {
   // return *(_visited_positions.rbegin())[0];
   return _visited_positions.rbegin()[0];
 }
@@ -41,9 +41,9 @@ boost::optional<const Room&> Builder::current_room(
     const Position& position) const { return room(current_position());}
 
 
-boost::optional<const Position&> Builder::next_position(
+boost::optional<const Position> Builder::next_position(
     const Direction& direction, const Position& position) const {
-  boost::optional<Position> next;
+  boost::optional<const Position> next;
   switch (direction) {
     case Direction::LEFT: {
       if (position.x - 1 >= 1) {
@@ -83,32 +83,34 @@ boost::optional<const Position&> Builder::next_position(
 }
 
 boost::optional<const Room&> Builder::room_to_left() const {
-  boost::optional<const Position&> _next_position = next_position(Direction::LEFT, Builder::current_position());
+  boost::optional<const Position> _next_position = next_position(Direction::LEFT, Builder::current_position());
   return  (_next_position == boost::none) ? boost::none : room(*_next_position);
 }
 
-boost::optional<std::vector<Room>> Builder::room_to_right(
-    const Position& position) const {
-  return room(next_position(Direction::RIGHT, Builder::current_position()));
+boost::optional<const Room&> Builder::room_to_right() const {
+  boost::optional<const Position> _next_position = next_position(Direction::RIGHT, Builder::current_position());
+  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
 }
 
-boost::optional<std::vector<Room>> Builder::room_to_up(
-    const Position& position) const {
-  return room(next_position(Direction::UP, Builder::current_position()));
+
+boost::optional<const Room&> Builder::room_to_up() const {
+  boost::optional<const Position> _next_position = next_position(Direction::UP, Builder::current_position());
+  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
 }
 
-boost::optional<std::vector<Room>> Builder::room_to_down(
-    const Position& position) const {
-  return room(next_position(Direction::DOWN, current_position()));
+
+boost::optional<const Room&> Builder::room_to_down() const {
+  boost::optional<const Position> _next_position = next_position(Direction::DOWN, Builder::current_position());
+  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
 }
 
-boost::optional<Direction>>
+boost::optional<Direction>
     Builder::determine_direction(const Room& next_room) const {
   boost::optional<Direction> direction_to_next_room;
 
-auto direction_iter = std::find_if(DIRECTIONS.begin(), DIRECTIONS.end(), [](d)->bool {
+auto direction_iter = std::find_if(DIRECTIONS.begin(), DIRECTIONS.end(), [this](Direction direction)->bool {
     auto room_to_direction =
-        Buider::room(next_position(direction, current_position()));
+        this->room(this->next_position(direction, this->current_position()));
     return (room_to_direction != boost::none &&
             room_to_direction.position() == next_room.position())
     }
