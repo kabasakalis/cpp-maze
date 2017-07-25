@@ -9,8 +9,8 @@ namespace maze {
 
 // Constructor
 Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
-  for (int x = 0; x < _rows; ++x) {
-    for (int y = 0; y < _columns; ++y) {
+  for (int x = 1; x <= _rows; ++x) {
+    for (int y = 1; y <= _columns; ++y) {
       Position position{x, y};
       Room room{position};
       _rooms.push_back(room);
