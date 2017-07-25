@@ -14,6 +14,7 @@
 
 # Build dir
 build*
+!builder.*
 debug_build
 release_build
 /bin
