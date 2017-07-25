@@ -37,12 +37,14 @@ set(headers
     ${include_path}/base.h
     ${include_path}/room.h
     ${include_path}/maze.h
+    ${include_path}/builder.h
 )
 
 set(sources
   ${source_path}/base.cpp
   ${source_path}/room.cpp
   ${source_path}/maze.cpp
+  ${source_path}/builder.cpp
 )
 
 # Group source files
