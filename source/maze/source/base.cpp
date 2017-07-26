@@ -14,11 +14,6 @@ bool Position::operator==(const Position &rhs) const {
  return (x == rhs.x && y == rhs.y);
 };
 
-std::map<Direction, Direction> opposite_direction{
-    {Direction::LEFT, Direction::RIGHT},
-    {Direction::RIGHT, Direction::LEFT},
-    {Direction::UP, Direction::DOWN},
-    {Direction::DOWN, Direction::UP}};
 
 std::map<Direction, std::string> direction_name{
     {Direction::LEFT, "LEFT"},
@@ -26,6 +21,8 @@ std::map<Direction, std::string> direction_name{
     {Direction::UP, "UP"},
     {Direction::DOWN, "DOWN"},
 };
+
+
 
 void logDirVector(const std::vector<Direction>& v, std::string message) {
   std::cout << message << std::endl;

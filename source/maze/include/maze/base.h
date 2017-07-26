@@ -23,6 +23,10 @@ struct Position {
   bool operator==(const Position &rhs) const;
 };
 
+
+// std::map<Direction, Direction> opposite_direction;
+
+
 MAZE_API void printMaze();
 MAZE_API void testfunction();
 MAZE_API void logDirVector(const std::vector<Direction>&, std::string);

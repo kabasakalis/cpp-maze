@@ -31,10 +31,8 @@ Room::Room(const Position& t_position) : _position{t_position} {
 const Position& Room::position() const { return _position; };
 const int& Room::x() const { return _x; }
 const int& Room::y() const { return _y; }
-const std::vector<Direction>& Room::visits_from() const { return _visits_from; }
-const std::vector<Direction>& Room::available_exits() const {
-  return _available_exits;
-}
+std::vector<Direction>& Room::visits_from() { return _visits_from; }
+std::vector<Direction>& Room::available_exits() { return _available_exits;}
 const std::vector<Direction>& Room::used_exits() const { return _used_exits; }
 
 bool Room::is_exit_free(const Direction& exit) const {

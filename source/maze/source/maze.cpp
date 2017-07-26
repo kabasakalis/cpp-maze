@@ -18,22 +18,23 @@ Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
   }
 }
 
-boost::optional<const Room&>
+boost::optional< Room>
 Maze::find_room(const Position& position) const {
   auto it = find_if(_rooms.begin(), _rooms.end(), [position](const Room& room) {
     return room.position() == position;
   });
-  if (it != _rooms.end()) return *it;
+  boost::optional<Room> room_ = *it;
+  if (it != _rooms.end()) return room_;
   return boost::none;
 };
 
-boost::optional<const Room&>
+boost::optional<Room>
 Maze::find_room(int x, int y) const {
   Position position{x, y};
  return  find_room(position);
 };
 
-auto Maze::all_rooms_visited() const{
+bool Maze::all_rooms_visited() const{
     return std::all_of(_rooms.begin(), _rooms.end(),
                        [](Room room) { return room.visited(); });};
 
