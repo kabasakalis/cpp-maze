@@ -16,7 +16,7 @@ class MAZE_API Builder {
 
   // Member functions
  void build_maze();
- private:
+//  private:
   Maze _maze;
   std::vector<Position> _path;
   std::vector<Position> _visited_positions;

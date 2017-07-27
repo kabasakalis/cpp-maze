@@ -6,6 +6,7 @@
 #include <boost/optional.hpp>
 #include <random>
 #include <chrono>
+#include <boost/optional/optional_io.hpp>
 using namespace utils;
 namespace maze {
 
@@ -14,8 +15,6 @@ std::map<Direction, Direction> opposite_direction{
     {Direction::RIGHT, Direction::LEFT},
     {Direction::UP, Direction::DOWN},
     {Direction::DOWN, Direction::UP}};
-
-
 
 // Constructor
 Builder::Builder(const Maze& maze) : _maze{maze} {
@@ -57,54 +56,66 @@ boost::optional<Room> Builder::current_room() { return room(*current_position())
 boost::optional<const Position> Builder::next_position(
     const Direction& direction, const Position& position) const {
   int next_position_x, next_position_y;
-  boost::optional<const Position> next;
+  bool out_of_bounds{false};
+  // boost::optional<const Position> next;
   switch (direction) {
     case Direction::LEFT: {
       if (position.x - 1 >= 1) {
+
+         logVar("", "CASE LEFT");
          next_position_x = position.x - 1 ;
          next_position_y = position.y;
          // next->x = position.x - 1;
          // next->y = position.y ;
       } else {
-         next = boost::none;
+        out_of_bounds = true;
       }
       break;
     }
     case Direction::RIGHT: {
       if (position.x + 1 <= _maze.columns()) {
+
+         logVar("", "CASE RIGHT");
          next_position_x = position.x + 1 ;
          next_position_y = position.y;
         // Position next{position.x + 1, position.y};
       } else {
-       next = boost::none;
+        out_of_bounds = true;
       }
       break;
     }
     case Direction::DOWN: {
+
       if (position.y + 1 <= _maze.rows()) {
+        logVar("", "CASE DOWN");
         // Position next{position.x, position.y + 1};
          next_position_x = position.x ;
          next_position_y = position.y + 1;
 
       } else {
-         next = boost::none;
+
+        out_of_bounds = true;
       }
       break;
     }
     case Direction::UP: {
+
       if (position.y - 1 >= 1) {
+        logVar("", "CASE UP");
          next_position_x = position.x;
          next_position_y = position.y - 1;
         // Position next{position.x, position.y - 1};
       } else {
-         next = boost::none;
+
+        out_of_bounds = true;
       }
       break;
     }
-    default: {  next = boost::none; }
+    default: {return boost::none;break; }
   }
-  if (next == boost::none) return boost::none;
+  if (out_of_bounds) return boost::none;
   Position  next_position{next_position_x, next_position_y};
+  logVar(next_position,   "next position");
   return next_position;
 }
 
@@ -153,14 +164,32 @@ std::vector<Room> Builder::valid_rooms_to_build() const {
   std::vector<Room> valid_rooms;
 
   for (auto direction : DIRECTIONS) {
-    auto room_to_direction = room(*next_position(direction, *current_position()));
+    auto cp_ptr = current_position();
+
+    logVar(*cp_ptr, "Current Position");
+    auto np = next_position(direction, *cp_ptr);
+
+    logVar(np == boost::none, "np == none?");
+    // if (np != boost::none)  logVar(*np, "np");
+    // if (np != boost::none)  logVar(*(room(*np)), "room(*np)");
+    auto room_to_direction = (np == boost::none) ? boost::none  : room(*np);
+
+    logVar(room_to_direction == boost::none, "room_to_direction = none");
+    // logVar(*room_to_direction, "room to direction");
+    // auto room_to_direction = room(*next_position(direction, *current_position()));
     if (room_to_direction != boost::none && !room_to_direction->visited()) {
+    logVar("", "Pushing to valide rooms");
+    logVar(*room_to_direction, "room to  direction  h");
       valid_rooms.push_back(*room_to_direction);
     }
   }
 
-  if (previous_position() != boost::none) {
-    auto previous_room = room(*previous_position());
+    auto pp = previous_position();
+    logVar(pp== boost::none, "pp is none");
+  if ( pp != boost::none) {
+
+    logVar("", "Removing previous room from valid rooms. ");
+    auto previous_room = room(*pp);
     valid_rooms.erase(
         std::remove_if(std::begin(valid_rooms), std::end(valid_rooms),
                        [&previous_room](Room r) {
@@ -168,6 +197,8 @@ std::vector<Room> Builder::valid_rooms_to_build() const {
                        }),
         std::end(valid_rooms));
   };
+
+  logVar(valid_rooms.size(), "valid rooms size");
   return valid_rooms;
 };
 
@@ -182,7 +213,11 @@ void Builder::build_maze() {
   while (!_maze.all_rooms_visited()) {
 
     auto valid_rooms_to_build_ = valid_rooms_to_build();
+
+    logVar( valid_rooms_to_build_.size(),  "Valid room inside build maze");
     auto current_room_ = current_room();
+
+  logVar(*current_room_, "CURRENT ROOM");
     if  (!valid_rooms_to_build_.empty()) {
         auto next_room = valid_rooms_to_build_.front();
         auto direction = determine_direction(next_room);
