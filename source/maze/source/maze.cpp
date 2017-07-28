@@ -5,6 +5,9 @@
 #include <memory>  // unique_ptr
 #include "maze/room.h"
 // #include "boost/multi_array.hpp"
+
+#include "maze/utils.h"
+using namespace utils;
 namespace maze {
 
 // Constructor
@@ -23,8 +26,7 @@ Maze::find_room(const Position& position) const {
   auto it = find_if(_rooms.begin(), _rooms.end(), [position](const Room& room) {
     return room.position() == position;
   });
-  boost::optional<Room> room_ = *it;
-  if (it != _rooms.end()) return room_;
+  if (it != _rooms.end()) return *it;
   return boost::none;
 };
 

@@ -11,8 +11,8 @@
 // #include "maze/utils.h"
 using namespace maze;
 using namespace utils;
-
-int main(int /*argc*/, char* /*argv*/ []) {
+int main(int argc, char *argv[]){
+// int main(int #<{(|argc|)}>#, char* #<{(|argv|)}># []) {
   baselib::printInfo();
   // Main
   // std::cout << "========================================" << std::endl;
@@ -76,6 +76,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
 
 
      Builder builder{maze};
+
     // test next position
 
     //  Position p{8,10};
@@ -83,7 +84,28 @@ int main(int /*argc*/, char* /*argv*/ []) {
     //  logVar(*np, "New Position to ");
 
 
+     // testing determine direction
+     // logVar(*builder.current_position() , "current position");
+     // logVar(*builder.room_to_right() , "room to right");
+     // logVar(*builder.room_to_left() , "room to left");
+     // logVar(*builder.room_to_up() , "room to up");
+     // logVar(*builder.room_to_down() , "room to down");
+     // auto dir= builder.determine_direction(l);
+     // logVar(dir == boost::none, "dir");
+
+
+     // logVar(*builder.current_position(), "builder current pos");
+     // logVar(*builder.current_room(), "builder current room");
+
+       // Position p{10,1};
+       // auto rr = builder.room(p);
+
+     // logVar(rr == boost::none, "rr is none");
+     // logVar(*rr, "Room at 10,1 ");
+
      builder.build_maze();
+
+     // logVar(maze.all_rooms_visited(), "all rooms visited");
     // logVar(builder.path().size(), "Path size");
 
 
