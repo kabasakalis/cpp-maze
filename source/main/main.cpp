@@ -60,7 +60,11 @@ int main(int argc, char *argv[]){
 
 
 
-    Maze maze;
+
+
+
+
+    Maze maze{3,3};
     logVar(maze.columns(), "maze columns");
     logVar(maze.rows(), "maze crows");
     // logVar(maze.rooms().size(), "Rooms size");

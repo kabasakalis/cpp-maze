@@ -193,6 +193,7 @@ std::vector<Room> Builder::valid_rooms_to_build() const {
     }
   }
 
+    logVar(valid_rooms.size(), "Valid Rooms Size before");
     auto pp = previous_position();
     // logVar(pp== boost::none, "pp is none");
   if ( pp != boost::none) {
@@ -207,6 +208,7 @@ std::vector<Room> Builder::valid_rooms_to_build() const {
         std::end(valid_rooms));
   };
 
+    logVar(valid_rooms.size(), "Valid Rooms After ");
   // logVar(valid_rooms.size(), "valid rooms size");
   return valid_rooms;
 };
@@ -219,43 +221,41 @@ void Builder::build_room(Room& a_room, const Direction& exit_to_free) {
 void Builder::build_maze() {
   logVar("", "Started Building Maze.");
 
-  while (!_maze.all_rooms_visited()) {
+  // while (!_maze.all_rooms_visited()) {
+    for (int i = 0; i < 5; i++) {
 
-        logVar("", "in build block. 1");
     auto valid_rooms_to_build_ = valid_rooms_to_build();
 
-    logVar( valid_rooms_to_build_.size(),  "Valid room inside build maze");
+    logVar( valid_rooms_to_build_.size(),  "Valid rooms number");
     auto current_room_ = current_room();
 
-  logVar(current_room_ == boost::none, "CURRENT ROOM = NONE");
+    logVar( *current_room_,  "Current room");
+     // logVar(current_room_ == boost::none, "CURRENT ROOM = NONE");
     if  (!valid_rooms_to_build_.empty()) {
 
-
-        logVar("", "in build block. 1");
+        logVar("", "Valid rooms not empty");
         auto next_room = valid_rooms_to_build_.front();
-        logVar(next_room, "bm, next_room");
-
+        logVar(next_room, "bm, next_room to build");
         auto direction = determine_direction(next_room);
-
         logVar(*direction, "DETERMINED DIR");
-        logVar("", "in build block. 3");
-       if (direction != boost::none) build_room( *current_room_, *direction);
-
-        logVar("", "in build block. 4");
+       // if (direction != boost::none) build_room( *current_room_, *direction);
+          build_room( *current_room_, *direction);
         _path.push_back(next_room.position());
-
-        logVar("", "in build block. 5");
         _visited_positions.push_back(next_room.position());
-         build_room(next_room, maze::opposite_direction.at(*direction));
+        logVar(maze::opposite_direction.at(*direction), "OPPOSITE DIRE");
+        build_room(next_room, maze::opposite_direction.at(*direction));
          // break;
-
-        logVar(valid_rooms_to_build_.size(), "valid_rooms_to_build_.");
+        // logVar(valid_rooms_to_build_.size(), "valid_rooms_to_build_.");
       }
     else {
+
+      logVar("", "GOING BACK");
       go_back_to_previous_visited_room();
-      _path.push_back(current_room_->position());
+      // _path.push_back(current_room_->position());
+      _path.push_back(current_room()->position());
     }  // if
   }  // while
+
 
   logVar("", "Completed in :");
   logVar(_path.size(), " steps: ");
