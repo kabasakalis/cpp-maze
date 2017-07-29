@@ -45,12 +45,12 @@ return boost::none;
 void Builder::go_back_to_previous_visited_room() {
   if (!_visited_positions.empty()) _visited_positions.pop_back();
 }
-boost::optional<Room> Builder::room(
-    const Position& position) const {
+boost::optional<Room*> Builder::room(
+    const Position& position)  {
   return _maze.find_room(position);
 }
 
-boost::optional<Room> Builder::current_room() {
+boost::optional<Room*> Builder::current_room() {
    auto current_position_ = current_position();
    logVar( *current_position_, "current Posito = boost::none");
     if ( current_position_ != boost::none) return room(*current_position_);
@@ -124,44 +124,45 @@ boost::optional<const Position> Builder::next_position(
   return next_position;
 }
 
-boost::optional< Room> Builder::room_to_left() const {
-  boost::optional<const Position> _next_position = next_position(Direction::LEFT, *Builder::current_position());
-  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
-}
-
-boost::optional< Room> Builder::room_to_right() const {
-  boost::optional<const Position> _next_position = next_position(Direction::RIGHT, *Builder::current_position());
-  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
-}
-
-
-boost::optional< Room> Builder::room_to_up() const {
-  boost::optional<const Position> _next_position = next_position(Direction::UP, *Builder::current_position());
-  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
-}
-
-
-boost::optional< Room> Builder::room_to_down() const {
-  boost::optional<const Position> _next_position = next_position(Direction::DOWN, *Builder::current_position());
-  return  (_next_position == boost::none) ? boost::none : room(*_next_position);
-}
+// boost::optional< Room> Builder::room_to_left() const {
+//   boost::optional<const Position> _next_position = next_position(Direction::LEFT, *Builder::current_position());
+//   return  (_next_position == boost::none) ? boost::none : room(*_next_position);
+// }
+//
+// boost::optional< Room> Builder::room_to_right() const {
+//   boost::optional<const Position> _next_position = next_position(Direction::RIGHT, *Builder::current_position());
+//   return  (_next_position == boost::none) ? boost::none : room(*_next_position);
+// }
+//
+//
+// boost::optional< Room> Builder::room_to_up() const {
+//   boost::optional<const Position> _next_position = next_position(Direction::UP, *Builder::current_position());
+//   return  (_next_position == boost::none) ? boost::none : room(*_next_position);
+// }
+//
+//
+// boost::optional< Room> Builder::room_to_down() const {
+//   boost::optional<const Position> _next_position = next_position(Direction::DOWN, *Builder::current_position());
+//   return  (_next_position == boost::none) ? boost::none : room(*_next_position);
+// }
 
 boost::optional<Direction>
     Builder::determine_direction(const Room& next_room) const {
   boost::optional<Direction> direction_to_next_room;
 
         // logVar("", "Determine direction 1");
-auto direction_iter = std::find_if(DIRECTIONS.begin(), DIRECTIONS.end(), [this, nr = next_room](Direction direction)->bool {
+ auto  const _this= this;
+auto direction_iter = std::find_if(DIRECTIONS.begin(), DIRECTIONS.end(), [ _this, nr = next_room](Direction direction) mutable ->bool {
 
         // logVar("", "Determine direction 2");
         // logVar(nr, "NEXT ROOM");
-  auto   current_position_ = this->current_position();
-auto next_position_ = (current_position_  != boost::none ) ?  this->next_position(direction, *current_position_): boost::none;
-auto room_to_direction = (next_position_  != boost::none ) ?  this->room(*next_position_ ) : boost::none;
+  auto   current_position_ = _this->current_position();
+auto next_position_ = (current_position_  != boost::none ) ?  _this->next_position(direction, *current_position_): boost::none;
+auto room_to_direction = (next_position_  != boost::none ) ?  _this->room(*next_position_ ) : boost::none;
 
         // logVar("", "Determine direction 3");
     return (room_to_direction != boost::none &&
-            room_to_direction->position() == nr.position());
+            *room_to_direction->position() == nr.position());
     });
 
 if ( direction_iter != DIRECTIONS.end()) return *direction_iter;

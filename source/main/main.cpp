@@ -78,6 +78,37 @@ int main(int argc, char *argv[]){
     // // logVar(r_no, "No Room");
     // logVar(r_no == boost::none, "No Room");
 
+    Position p12{1,2};
+    Position p23{2,3};
+    Position r23{p23};
+
+    auto r12 = maze.fr(p12);
+    logDirVector( (*(*r12))._available_exits, "AVAIL EXITS BEFORE");
+    (*(*r12))._available_exits.push_back(Direction::UP);
+    logDirVector( (*(*r12))._available_exits, "AVAIL EXITS AFTER");
+
+    auto r12_b = maze.fr(p12);
+    logDirVector( (*(*r12_b))._available_exits, "AVAIL EXITS SECOND ");
+
+
+
+
+    // auto r12 = maze.find_room(p12);
+    // logDirVector( r12->_available_exits, "AVAIL EXITS BEFORE");
+    // r12->_available_exits.push_back(Direction::UP);
+    // logDirVector( r12->_available_exits, "AVAIL EXITS AFTER");
+    //
+    // auto r12_b = maze.find_room(p12);
+    // logDirVector( r12_b->_available_exits, "AVAIL EXITS SECOND ");
+
+
+
+
+
+
+    // auto r23 = maze.find_room(p23);
+
+
 
      Builder builder{maze};
 
@@ -107,7 +138,7 @@ int main(int argc, char *argv[]){
      // logVar(rr == boost::none, "rr is none");
      // logVar(*rr, "Room at 10,1 ");
 
-     builder.build_maze();
+     // builder.build_maze();
 
      // logVar(maze.all_rooms_visited(), "all rooms visited");
     // logVar(builder.path().size(), "Path size");

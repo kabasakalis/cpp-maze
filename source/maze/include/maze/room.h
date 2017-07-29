@@ -45,9 +45,9 @@ class MAZE_API Room final {
   std::vector<Direction> _visits_from;
   std::vector<Direction> _used_exits;
   std::vector<Direction> _available_exits;
- private:
   int _x;
   int _y;
+ private:
   Position _position;
 };
 
