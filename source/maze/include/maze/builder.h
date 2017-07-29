@@ -25,7 +25,7 @@ class MAZE_API Builder {
   boost::optional<Position> previous_position() const;
   void go_back_to_previous_visited_room();
 
-  MAZE_API boost::optional<Room*> room(const Position&) ;
+  MAZE_API boost::optional<Room*> room(const Position&) const;
   MAZE_API boost::optional<Room*> current_room();
   MAZE_API boost::optional<const Position> next_position(const Direction&,
                                                        const Position&) const;

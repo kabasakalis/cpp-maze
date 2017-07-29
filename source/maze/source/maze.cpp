@@ -22,12 +22,12 @@ Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
 }
 
 boost::optional<Room*>
-Maze::find_room(const Position& position)  {
+Maze::find_room(const Position& position) const  {
   auto it = find_if(_rooms.begin(), _rooms.end(), [position](const Room& room) {
     return room.position() == position;
   });
   if (it != _rooms.end()) {
-    boost::optional<Room*> room_ptr = &(*it);
+    boost::optional<Room*> room_ptr = const_cast<Room*>(&(*it));
     return room_ptr;
   }
   return boost::none;
@@ -35,7 +35,7 @@ Maze::find_room(const Position& position)  {
 
 
 boost::optional< Room*>
-Maze::fr(const Position& position)  {
+Maze::fr(const Position& position)   {
   auto it = find_if(_rooms.begin(), _rooms.end(), [position]( Room& room) {
     return room.position() == position;
   });

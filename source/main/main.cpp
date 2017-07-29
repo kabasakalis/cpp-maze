@@ -64,7 +64,7 @@ int main(int argc, char *argv[]){
 
 
 
-    Maze maze{3,3};
+    Maze maze{2,2};
     logVar(maze.columns(), "maze columns");
     logVar(maze.rows(), "maze crows");
     // logVar(maze.rooms().size(), "Rooms size");
@@ -82,24 +82,17 @@ int main(int argc, char *argv[]){
     Position p23{2,3};
     Position r23{p23};
 
-    auto r12 = maze.fr(p12);
-    logDirVector( (*(*r12))._available_exits, "AVAIL EXITS BEFORE");
-    (*(*r12))._available_exits.push_back(Direction::UP);
-    logDirVector( (*(*r12))._available_exits, "AVAIL EXITS AFTER");
-
-    auto r12_b = maze.fr(p12);
-    logDirVector( (*(*r12_b))._available_exits, "AVAIL EXITS SECOND ");
 
 
 
-
+    // Testing room mutation
     // auto r12 = maze.find_room(p12);
-    // logDirVector( r12->_available_exits, "AVAIL EXITS BEFORE");
-    // r12->_available_exits.push_back(Direction::UP);
-    // logDirVector( r12->_available_exits, "AVAIL EXITS AFTER");
+    // logDirVector( (**r12)._available_exits, "AVAIL EXITS BEFORE");
+    // (**r12)._available_exits.push_back(Direction::UP);
+    // logDirVector( (**r12)._available_exits, "AVAIL EXITS AFTER");
     //
     // auto r12_b = maze.find_room(p12);
-    // logDirVector( r12_b->_available_exits, "AVAIL EXITS SECOND ");
+    // logDirVector( (**r12_b)._available_exits, "AVAIL EXITS SECOND ");
 
 
 
@@ -111,6 +104,7 @@ int main(int argc, char *argv[]){
 
 
      Builder builder{maze};
+     builder.build_maze();
 
     // test next position
 
@@ -138,7 +132,6 @@ int main(int argc, char *argv[]){
      // logVar(rr == boost::none, "rr is none");
      // logVar(*rr, "Room at 10,1 ");
 
-     // builder.build_maze();
 
      // logVar(maze.all_rooms_visited(), "all rooms visited");
     // logVar(builder.path().size(), "Path size");
