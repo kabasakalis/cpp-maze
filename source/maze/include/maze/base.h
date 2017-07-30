@@ -18,9 +18,12 @@ enum Direction { LEFT, RIGHT, UP, DOWN };
 const std::vector<Direction> DIRECTIONS{
     {Direction::LEFT, Direction::RIGHT, Direction::UP, Direction::DOWN}};
 
-struct Position {
+class Position {
+  public:
   int x, y;
-  bool operator==(const Position &rhs) const;
+
+friend bool operator==(const maze::Position&, const maze::Position&);
+
 };
 
 
@@ -31,8 +34,12 @@ MAZE_API void printMaze();
 MAZE_API void testfunction();
 MAZE_API void logDirVector(const std::vector<Direction>&, std::string);
 
+
 }  // namespace maze
 
+
+
+MAZE_API bool maze::operator==(const maze::Position& , const maze::Position& rhs) ;
 MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Position&);
 MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Room&);
 MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Direction);

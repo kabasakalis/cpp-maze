@@ -10,9 +10,18 @@ void printMaze() { std::cout << "maze::printMaze" << std::endl; }
 
 
 
-bool Position::operator==(const Position &rhs) const {
- return (x == rhs.x && y == rhs.y);
-};
+// bool Position::operator==(const Position& rhs) const {
+//  return (x == rhs.x && y == rhs.y);
+// };
+
+
+
+
+// bool Position::operator==(const Position& rhs)const{
+//   std::cout << "Positionoperator overloaded ==  " << rhs.y;
+//  return (x == rhs.x && y == rhs.y);
+// }
+
 
 
 std::map<Direction, std::string> direction_name{
@@ -34,6 +43,10 @@ void logDirVector(const std::vector<Direction>& v, std::string message) {
 }
 }
 
+
+bool maze::operator== (const maze::Position& lhs, const maze::Position& rhs) { return (lhs.x == rhs.x && lhs.y == rhs.y);}
+
+
 std::ostream& operator<<(std::ostream& stream, const maze::Position& pos) {
   std::printf("Point x: %d, y: %d", pos.x, pos.y);
   return stream;
@@ -49,6 +62,5 @@ std::ostream& operator<<(std::ostream& stream,
   std::cout << maze::direction_name[direction];
   return stream;
 }
-
 
 

@@ -11,9 +11,13 @@
 // #include "maze/utils.h"
 using namespace maze;
 using namespace utils;
-int main(int argc, char *argv[]){
-// int main(int #<{(|argc|)}>#, char* #<{(|argv|)}># []) {
+// int main(int argc, char *argv[]){
+
+int main(int /*argc*/, char* /*argv*/ []) {
   baselib::printInfo();
+
+
+
   // Main
   // std::cout << "========================================" << std::endl;
   // std::cout << "Main" << std::endl;
@@ -64,9 +68,6 @@ int main(int argc, char *argv[]){
 
 
 
-    Maze maze{2,2};
-    logVar(maze.columns(), "maze columns");
-    logVar(maze.rows(), "maze crows");
     // logVar(maze.rooms().size(), "Rooms size");
     // logVar(maze.rooms().front(), "First  room");
     // logVar(maze.rooms().back(), "Last  room");
@@ -78,9 +79,16 @@ int main(int argc, char *argv[]){
     // // logVar(r_no, "No Room");
     // logVar(r_no == boost::none, "No Room");
 
-    Position p12{1,2};
-    Position p23{2,3};
-    Position r23{p23};
+    //Testing position equality operator
+    // Position const p12{1,2};
+    // Position const p122{1,2};
+    // Position const p4{4,5};
+    // std::cout << std::boolalpha << (p12 == p4) << std::endl;
+    //
+
+    // logVar(p12 == p122, "Posit Equal");
+    // Position p23{2,3};
+   // Position r23{p23};
 
 
 
@@ -103,8 +111,6 @@ int main(int argc, char *argv[]){
 
 
 
-     Builder builder{maze};
-     builder.build_maze();
 
     // test next position
 
@@ -137,8 +143,13 @@ int main(int argc, char *argv[]){
     // logVar(builder.path().size(), "Path size");
 
 
+    Maze maze{2,2};
+    logVar(maze.columns(), "maze columns");
+    logVar(maze.rows(), "maze crows");
 
 
+     Builder builder{maze};
+     builder.build_maze();
 
 
   return 0;
