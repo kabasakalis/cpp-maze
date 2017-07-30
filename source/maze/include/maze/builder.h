@@ -2,10 +2,14 @@
 #include <vector>
 #include "maze/maze.h"
 #include "maze/base.h"
+#include <functional>   // std::reference_wrapper
 namespace maze {
 
 class MAZE_API Builder {
  public:
+  typedef std::vector<std::reference_wrapper<Room>> Rooms;
+  typedef std::reference_wrapper<Room> RoomRef;
+
   explicit Builder(const Maze&);  // constructor
 
   ~Builder() = default;                    // dtor
@@ -36,7 +40,8 @@ class MAZE_API Builder {
   // MAZE_API boost::optional< Room> room_to_down() const;
 
   MAZE_API boost::optional<Direction> determine_direction(const Room& next_room) const;
-  MAZE_API std::vector<Room> valid_rooms_to_build() const;
+  // MAZE_API std::vector<Room> valid_rooms_to_build() const;
+  MAZE_API Rooms valid_rooms_to_build() const;
   MAZE_API void  build_room( Room& a_room, const Direction& exit_to_free);
 
   MAZE_API int _random_integer(int upper, int lower) const;
