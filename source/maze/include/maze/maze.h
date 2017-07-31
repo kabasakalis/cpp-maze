@@ -27,8 +27,8 @@ class MAZE_API Maze final {
       const std::vector<Room>& rooms() const;
       const int& rows() const;
       const int& columns() const;
+      std::vector<Room> _rooms;
   private:
-    std::vector<Room> _rooms;
     int _rows;
     int _columns;
   };

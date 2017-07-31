@@ -16,6 +16,54 @@ using namespace utils;
 int main(int /*argc*/, char* /*argv*/ []) {
   baselib::printInfo();
 
+    Maze maze{10,10};
+    logVar(maze.columns(), "maze columns");
+    logVar(maze.rows(), "maze crows");
+
+
+
+     Builder builder{maze};
+
+
+
+     // Position p11{1,1};
+     // auto r= maze.find_room(p11);
+
+
+
+     //Maze find
+
+     // Position p11{1,1};
+     // auto room= maze.find_room(p11);
+     // auto r = **room;
+
+
+
+      // Valid rooms
+     auto valid_rooms_to_build_ = builder.valid_rooms_to_build();
+      logVar(valid_rooms_to_build_.size(), "valid rooms to build size");
+      Room& r = valid_rooms_to_build_.front().get();
+     builder.build_room(r, Direction::UP);
+     logDirVector( r._visits_from, "visits_from r:");
+
+
+
+          // Room& r2 = builder._maze._rooms.at(0);
+      Room& r2 = valid_rooms_to_build_.front().get();
+      logVar(r2, "r2");
+      logDirVector( r2._visits_from, "visits_from r2:");
+
+      // auto r2= builder._maze.find_room(r.position());
+      // logVar(**r2, "r2 from maze");
+      // logDirVector( (**r2)._visits_from, "visits_from r:");
+
+
+     // auto r_b= builder._maze.find_room(r.position());
+     // // builder.build_room(**r_b, Direction::DOWN);
+     // logDirVector( (**r_b)._visits_from, "visits_from r_b:");
+
+
+     builder.build_maze();
 
 
   // Main
@@ -94,6 +142,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
 
 
     // Testing room mutation
+    // Position const p12{1,2};
     // auto r12 = maze.find_room(p12);
     // logDirVector( (**r12)._available_exits, "AVAIL EXITS BEFORE");
     // (**r12)._available_exits.push_back(Direction::UP);
@@ -102,7 +151,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
     // auto r12_b = maze.find_room(p12);
     // logDirVector( (**r12_b)._available_exits, "AVAIL EXITS SECOND ");
 
-
+   //Testing rooms_to_build
 
 
 
@@ -143,13 +192,6 @@ int main(int /*argc*/, char* /*argv*/ []) {
     // logVar(builder.path().size(), "Path size");
 
 
-    Maze maze{2,2};
-    logVar(maze.columns(), "maze columns");
-    logVar(maze.rows(), "maze crows");
-
-
-     Builder builder{maze};
-     builder.build_maze();
 
 
   return 0;

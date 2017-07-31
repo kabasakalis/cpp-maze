@@ -273,7 +273,8 @@ void Builder::build_room(Room& a_room, const Direction& exit_to_free) {
   a_room._available_exits.push_back(exit_to_free);
   a_room._visits_from.push_back(exit_to_free);
 
-  // logDirVector( a_room._visits_from, "aroom.visits_from");
+   logVar(a_room, "Building Room");
+  logDirVector( a_room._visits_from, "visits_from:");
 }
 
 void Builder::build_maze() {
@@ -281,8 +282,8 @@ void Builder::build_maze() {
 
   logVar(_path.back(), "start"  );
   logVar(_path.size(),"PATH SIZE START");
-  // while (!_maze.all_rooms_visited()) {
-    for (int i = 0; i < 10; i++) {
+  while (!_maze.all_rooms_visited()) {
+    // for (int i = 0; i < 4; i++) {
 
     auto valid_rooms_to_build_ = valid_rooms_to_build();
 
@@ -292,7 +293,7 @@ void Builder::build_maze() {
      // logVar(current_room_ == boost::none, "CURRENT ROOM = NONE");
     if  (!valid_rooms_to_build_.empty()) {
         logVar( valid_rooms_to_build_.size(),  "Valid rooms number in buildmaze");
-        auto next_room = valid_rooms_to_build_.front().get();
+        Room& next_room = valid_rooms_to_build_.front().get();
         logVar(next_room, " next_room to build");
         auto direction = determine_direction(next_room);
         logVar(*direction, "DETERMINED DIR");
@@ -325,16 +326,19 @@ void Builder::build_maze() {
    Position p12{1,2};
    Position p22{2,2};
    Position p21{2,1};
+   Position p99{9,9};
 
    auto r11= _maze.find_room(p11);
    auto r12= _maze.find_room(p12);
    auto r21= _maze.find_room(p21);
    auto r22= _maze.find_room(p22);
+   auto r99= _maze.find_room(p99);
 
   logDirVector( (**r11)._visits_from, "r11.visits_from");
   logDirVector( (**r12)._visits_from, "r12.visits_from");
   logDirVector( (**r21)._visits_from, "r21.visits_from");
   logDirVector( (**r22)._visits_from, "r22.visits_from");
+  logDirVector( (**r99)._visits_from, "r99.visits_from");
 
   // hello
 }
