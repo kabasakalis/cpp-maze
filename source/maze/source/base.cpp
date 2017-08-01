@@ -45,6 +45,7 @@ void logDirVector(const std::vector<Direction>& v, std::string message) {
 
 
 bool maze::operator== (const maze::Position& lhs, const maze::Position& rhs) { return (lhs.x == rhs.x && lhs.y == rhs.y);}
+bool maze::operator!= (const maze::Position& lhs, const maze::Position& rhs) { return (lhs.x != rhs.x || lhs.y != rhs.y);}
 
 
 std::ostream& operator<<(std::ostream& stream, const maze::Position& pos) {

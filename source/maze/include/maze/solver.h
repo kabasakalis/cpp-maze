@@ -2,10 +2,13 @@
 #pragma once
 
 #include <maze/maze_api.h>
+#include "maze/builder.h"
+#include "maze/base.h"
 
 namespace maze {
 
-class MAZE_API Solver : public  Builder {
+using namespace utils;
+class MAZE_API Solver : public Builder {
   public:
     explicit Solver( const Maze& maze,
         const Position& starting_position,
@@ -16,7 +19,6 @@ class MAZE_API Solver : public  Builder {
     //reset _path
     //reset _visited positions
 
-       } ; // constructor
 
     // def initialize(options)
     //   @maze = options[:maze]
@@ -54,14 +56,14 @@ class MAZE_API Solver : public  Builder {
   //
 
 
-  MAZE_API boost::optional<Direction> use_smart_strategy_to_choose_next_forward_move() const;
-  MAZE_API boost::optional<Direction> look_for_exit_leading_to_goal_in_next_room() const;
+  MAZE_API boost::optional<Direction> use_smart_strategy_to_choose_next_forward_move() ;
+  MAZE_API boost::optional<Direction> look_for_exit_leading_to_goal_in_next_room();
   MAZE_API void solve_maze();
 
   private:
     void reset_maze();
     Position  _starting_position;
-    Position  goal_position;
+    Position  _goal_position;
 };
 
 }  // namespace solver

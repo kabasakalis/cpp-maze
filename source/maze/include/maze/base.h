@@ -23,6 +23,7 @@ class Position {
   int x, y;
 
 friend bool operator==(const maze::Position&, const maze::Position&);
+friend bool operator!=(const maze::Position&, const maze::Position&);
 
 };
 

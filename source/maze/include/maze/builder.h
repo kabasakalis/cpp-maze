@@ -10,6 +10,7 @@ class MAZE_API Builder {
   typedef std::vector<std::reference_wrapper<Room>> Rooms;
   typedef std::reference_wrapper<Room> RoomRef;
 
+  explicit Builder();  // default constructor
   explicit Builder(const Maze&);  // constructor
 
   virtual ~Builder() = default;                    // dtor

@@ -32,7 +32,7 @@ class MAZE_API Maze final {
       std::vector<Room>& rooms() ;
       // std::vector<Room>& rooms();
 
-      Rooms rooms();
+      // Rooms rooms();
 
       const int& rows() const;
       const int& columns() const;

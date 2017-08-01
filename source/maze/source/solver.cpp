@@ -2,14 +2,23 @@
 #include "maze/solver.h"
 #include <boost/optional/optional_io.hpp>
 #include "maze/base.h"
-
+#include "maze/builder.h"
+#include <vector>
 namespace maze {
 
+std::map<Direction, Direction> opposite_direction2{
+    {Direction::LEFT, Direction::RIGHT},
+    {Direction::RIGHT, Direction::LEFT},
+    {Direction::UP, Direction::DOWN},
+    {Direction::DOWN, Direction::UP}};
+
+
 // Constructor
-Solver::Solver(std::string string_)
-    : _maze(maze),
-      _starting_position{starting_position},
-      _goal_position{goal_position} {}
+Solver::Solver( const Maze& maze,
+        const Position& starting_position,
+        const Position& goal_position )
+      :_starting_position{starting_position},
+       _goal_position{goal_position} {_maze = maze;}
 // Special Member functions
 
 // virtual Solver()::~Solver() = default                   // dtor
@@ -23,12 +32,12 @@ Solver::Solver(std::string string_)
 // assignment
 
 // Member functions
-Solver::reset_maze() {
+void Solver::reset_maze() {
   for (Room& room : _maze.rooms()) {
     room.visits_from().clear();
   }
-  _path.reset();
-  _visited_positions.reset();
+  _path.clear();
+  _visited_positions.clear();
   _path.push_back(_starting_position);
   _visited_positions.push_back(_starting_position);
 }
@@ -40,18 +49,20 @@ Solver::reset_maze() {
 // end
 
 boost::optional<Direction>
-Solver::use_smart_strategy_to_choose_next_forward_move() const {
+Solver::use_smart_strategy_to_choose_next_forward_move()  {
   auto goal_position_ = look_for_exit_leading_to_goal_in_next_room();
   if (goal_position_ != boost::none) return goal_position_;
 
-  auto& current_room_less_used_available_exits_ =
-      current_room().less_used_available_exits();
+
+    auto current_room_ = current_room();
+  auto current_room_less_used_available_exits_ =
+      (**current_room_).less_used_available_exits();
 
   auto exit_iter =
       std::find_if(current_room_less_used_available_exits_.begin(),
                    current_room_less_used_available_exits_.end(),
-                   [this](Direction exit) mutable -> bool {
-                     return (exit != current_room().visits_from().back());
+                   [this, current_room_](Direction exit) mutable -> bool {
+                     return (exit != (**current_room_).visits_from().back());
                    });
   if (exit_iter != current_room_less_used_available_exits_.end())
     return *exit_iter;
@@ -63,9 +74,10 @@ Solver::use_smart_strategy_to_choose_next_forward_move() const {
 //    == goal_position }
 //  end
 
-boost::optional<Direction> Solver::look_for_exit_leading_to_goal_in_next_room()
-    const {
-  auto& available_exits_ = current_room().available_exits();
+boost::optional<Direction> Solver::look_for_exit_leading_to_goal_in_next_room() {
+
+  auto current_room_ = current_room();
+  auto& available_exits_ = (**current_room_).available_exits();
   auto exit_iter =
       std::find_if(available_exits_.begin(), available_exits_.end(),
                    [this](Direction exit) mutable -> bool {
@@ -130,7 +142,7 @@ void Solver::solve_maze() {
       _path.push_back((**next_room_).position());
       _visited_positions.push_back((**next_room_).position());
       (**next_room_).visits_from().push_back(
-          maze::opposite_direction.at(next_direction_));
+          maze::opposite_direction2.at(next_direction_));
 
     } else {
       logVar("", "GOING BACK");

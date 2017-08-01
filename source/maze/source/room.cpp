@@ -33,7 +33,7 @@ const int& Room::x() const { return _x; }
 const int& Room::y() const { return _y; }
 std::vector<Direction>& Room::visits_from() { return _visits_from; }
 std::vector<Direction>& Room::available_exits() { return _available_exits;}
-const std::vector<Direction>& Room::used_exits() const { return _used_exits; }
+std::vector<Direction>& Room::used_exits() { return _used_exits; }
 
 bool Room::is_exit_free(const Direction& exit) const {
   if (std::find(_available_exits.begin(), _available_exits.end(), exit) !=
