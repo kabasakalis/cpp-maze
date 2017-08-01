@@ -12,7 +12,7 @@ class MAZE_API Builder {
 
   explicit Builder(const Maze&);  // constructor
 
-  ~Builder() = default;                    // dtor
+  virtual ~Builder() = default;                    // dtor
   Builder(const Builder& rhs) = delete;         // copy constructor
   Builder& operator=(const Builder& rhs) = delete;  // copy assignment
   Builder(Builder&& rhs) = delete;                  // move constructor
@@ -21,17 +21,14 @@ class MAZE_API Builder {
   // Member functions
  void build_maze();
 //  private:
-  Maze _maze;
-  std::vector<Position> _path;
-  std::vector<Position> _visited_positions;
 
-  boost::optional<Position> current_position() const;
-  boost::optional<Position> previous_position() const;
-  void go_back_to_previous_visited_room();
+  virtual  boost::optional<Position> current_position() const;
+  virtual  boost::optional<Position> previous_position() const;
+  virtual  void go_back_to_previous_visited_room();
 
-  MAZE_API boost::optional<Room*> room(const Position&) const;
-  MAZE_API boost::optional<Room*> current_room();
-  MAZE_API boost::optional<const Position> next_position(const Direction&,
+  virtual  boost::optional<Room*> room(const Position&) const;
+  virtual boost::optional<Room*> current_room();
+  virtual boost::optional<const Position> next_position(const Direction&,
                                                        const Position&) const;
 
   // MAZE_API boost::optional< Room> room_to_left() const;
@@ -39,12 +36,18 @@ class MAZE_API Builder {
   // MAZE_API boost::optional< Room> room_to_up() const;
   // MAZE_API boost::optional< Room> room_to_down() const;
 
-  MAZE_API boost::optional<Direction> determine_direction(const Room& next_room) const;
+  boost::optional<Direction> determine_direction(const Room& next_room) const;
   // MAZE_API std::vector<Room> valid_rooms_to_build() const;
   MAZE_API Rooms valid_rooms_to_build() const;
   MAZE_API void  build_room( Room& a_room, const Direction& exit_to_free);
 
   MAZE_API int _random_integer(int upper, int lower) const;
+
+//  protected:
+  Maze _maze;
+  std::vector<Position> _path;
+  std::vector<Position> _visited_positions;
+
 };
 
 }  // namespace maze

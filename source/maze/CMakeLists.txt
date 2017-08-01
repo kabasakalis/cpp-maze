@@ -38,6 +38,7 @@ set(headers
     ${include_path}/room.h
     ${include_path}/maze.h
     ${include_path}/builder.h
+    ${include_path}/solver.h
 )
 
 set(sources
@@ -45,6 +46,7 @@ set(sources
   ${source_path}/room.cpp
   ${source_path}/maze.cpp
   ${source_path}/builder.cpp
+  ${source_path}/solver.cpp
 )
 
 # Group source files
@@ -178,7 +180,6 @@ target_compile_options(${target}
 
     PUBLIC
     ${DEFAULT_COMPILE_OPTIONS}
-    -g
 
     INTERFACE
 )

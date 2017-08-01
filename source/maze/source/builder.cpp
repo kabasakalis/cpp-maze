@@ -35,27 +35,27 @@ int Builder::_random_integer(int lower, int upper) const {
   return distribution(generator);
 }
 
-boost::optional<Position>  Builder::current_position() const {
+virtual boost::optional<Position>  Builder::current_position() const {
   boost::optional<Position>  last = _visited_positions.rbegin()[0];
 if (_visited_positions.size() >= 1 && last != boost::none )  return last;
 return boost::none;
 }
 
-boost::optional<Position> Builder::previous_position() const {
+virtual boost::optional<Position> Builder::previous_position() const {
   boost::optional<Position>  second_to_last = _visited_positions.rbegin()[1];
 if (_visited_positions.size() >= 2 && second_to_last != boost::none )  return second_to_last;
 return boost::none;
 }
 
-void Builder::go_back_to_previous_visited_room() {
+ virtual  void Builder::go_back_to_previous_visited_room() {
   if (!_visited_positions.empty()) _visited_positions.pop_back();
 }
-boost::optional<Room*> Builder::room(
+virtaul boost::optional<Room*> Builder::room(
     const Position& position) const {
   return _maze.find_room(position);
 }
 
-boost::optional<Room*> Builder::current_room() {
+virtual boost::optional<Room*> Builder::current_room() {
    auto current_position_ = current_position();
    logVar( *current_position_, "current Posito = boost::none");
     if ( current_position_ != boost::none) return room(*current_position_);
@@ -63,7 +63,7 @@ boost::optional<Room*> Builder::current_room() {
 }
 
 
-boost::optional<const Position> Builder::next_position(
+virtual boost::optional<const Position> Builder::next_position(
     const Direction& direction, const Position& position) const {
   int next_position_x, next_position_y;
   bool out_of_bounds{false};
@@ -318,7 +318,7 @@ void Builder::build_maze() {
   }  // while
 
 
-  logVar("", "Completed in :");
+  logVar("", "Maze built in :");
   logVar(_path.size(), " steps: ");
 
 

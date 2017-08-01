@@ -4,8 +4,13 @@
 #include <vector>
 #include "maze/room.h"
 #include <boost/optional.hpp>
+#include <functional>   // std::reference_wrapper
 
 namespace maze {
+
+  // typedef std::vector<std::reference_wrapper<Room>> Rooms;
+  // typedef std::reference_wrapper<Room> RoomRef;
+
 
 class MAZE_API Maze final {
   public:
@@ -24,7 +29,11 @@ class MAZE_API Maze final {
 
       bool all_rooms_visited() const;
 
-      const std::vector<Room>& rooms() const;
+      std::vector<Room>& rooms() ;
+      // std::vector<Room>& rooms();
+
+      Rooms rooms();
+
       const int& rows() const;
       const int& columns() const;
       std::vector<Room> _rooms;

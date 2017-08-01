@@ -59,8 +59,20 @@ bool Maze::all_rooms_visited() const{
                        [](Room room) { return room.visited(); });};
 
 
-const std::vector<Room>&
-Maze::rooms() const { return _rooms;}
+ std::vector<Room>&
+Maze::rooms()  { return _rooms;}
+
+
+// Rooms Maze::rooms() {
+//   // std::vector<Room*> valid_rooms;
+//   Rooms valid_rooms;
+//
+//
+// return _rooms;
+// };
+
+
+
 
 const int& Maze::rows() const { return _rows; }
 const int& Maze::columns() const {return _columns;}
