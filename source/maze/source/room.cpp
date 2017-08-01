@@ -6,9 +6,11 @@
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <iostream>
+#include "maze/base.h"
 
 namespace maze {
 
+using namespace utils;
 // Default constructor
 Room::Room() {}
 
@@ -56,11 +58,15 @@ const std::map<long, std::vector<Direction>> Room::times_used_to_exits() const {
 }
 
 std::vector<Direction> Room::less_used_available_exits() {
+
   std::vector<long> frequencies;
   boost::copy(Room::times_used_to_exits() | boost::adaptors::map_keys,
               std::back_inserter(frequencies));
+  logVar(frequencies.size(), "frequencies  ");
   auto less_used_frequency =
       *std::min_element(frequencies.begin(), frequencies.end());
+
+
   return times_used_to_exits().at(less_used_frequency);
 }
 

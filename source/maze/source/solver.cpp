@@ -50,8 +50,9 @@ void Solver::reset_maze() {
 
 boost::optional<Direction>
 Solver::use_smart_strategy_to_choose_next_forward_move()  {
+
   auto goal_position_ = look_for_exit_leading_to_goal_in_next_room();
-  if (goal_position_ != boost::none) return goal_position_;
+  if (goal_position_ != boost::none) return *goal_position_;
 
 
     auto current_room_ = current_room();
@@ -124,10 +125,13 @@ void Solver::solve_maze() {
   logVar("", "Maze is now being solved, please wait.");
   reset_maze();
   while ( *(current_position()) != _goal_position) {
+
+    logVar("", "While loop started");
     auto current_position_ = current_position();
     auto current_room_ = current_room();
 
     if (use_smart_strategy_to_choose_next_forward_move() != boost::none) {
+
       auto next_direction_ =
           *(use_smart_strategy_to_choose_next_forward_move());
 

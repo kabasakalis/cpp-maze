@@ -5,6 +5,7 @@
 #include "maze/base.h"
 #include "maze/maze.h"
 #include "maze/builder.h"
+#include "maze/solver.h"
 // #include "maze/room.h"
 
 #include <boost/optional/optional_io.hpp>
@@ -23,7 +24,8 @@ int main(int /*argc*/, char* /*argv*/ []) {
 
 
      Builder builder{maze};
-
+     Solver  solver{builder._maze, Position{1,1}, Position{10,10}};
+     solver.solve_maze();
 
 
      // Position p11{1,1};
