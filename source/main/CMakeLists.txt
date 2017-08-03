@@ -6,6 +6,11 @@
 # find_package(THIRDPARTY REQUIRED)
 
 
+find_package(SFML 2 REQUIRED network audio graphics window system)
+if (NOT SFML_FOUND)
+  message(FATAL_ERROR "Package SFML not found")
+endif (NOT SFML_FOUND)
+
 #
 # Executable name and options
 #
@@ -50,7 +55,6 @@ set_target_properties(${target}
     FOLDER "${IDE_FOLDER}"
 )
 
-
 #
 # Include directories
 #
@@ -59,6 +63,7 @@ target_include_directories(${target}
     PRIVATE
     ${DEFAULT_INCLUDE_DIRECTORIES}
     ${PROJECT_BINARY_DIR}/source/include
+    ${SFML_INCLUDE_DIR}
 )
 
 
@@ -71,6 +76,9 @@ target_link_libraries(${target}
     ${DEFAULT_LIBRARIES}
     ${META_PROJECT_NAME}::maze
     ${META_PROJECT_NAME}::baselib
+    PUBLIC
+    ${SFML_LIBRARIES}
+    ${SFML_DEPENDENCIES}
 )
 
 
