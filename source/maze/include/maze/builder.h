@@ -14,10 +14,10 @@ class MAZE_API Builder {
   explicit Builder(const Maze&);  // constructor
 
   virtual ~Builder() = default;                    // dtor
-  Builder(const Builder& rhs) = delete;         // copy constructor
-  Builder& operator=(const Builder& rhs) = delete;  // copy assignment
-  Builder(Builder&& rhs) = delete;                  // move constructor
-  Builder& operator=(Builder&& rhs) = delete;       // move assignment
+  // Builder(const Builder& rhs) = delete;         // copy constructor
+  // Builder& operator=(const Builder& rhs) = delete;  // copy assignment
+  // Builder(Builder&& rhs) = delete;                  // move constructor
+  // Builder& operator=(Builder&& rhs) = delete;       // move assignment
 
   // Member functions
  void build_maze();

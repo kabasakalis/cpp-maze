@@ -10,6 +10,8 @@
 using namespace utils;
 namespace maze {
 
+
+
 // Constructor
 Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
   for (int x = 1; x <= _rows; ++x) {
@@ -20,6 +22,8 @@ Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
     }
   }
 }
+
+
 
 boost::optional<Room*>
 Maze::find_room(const Position& position) const  {

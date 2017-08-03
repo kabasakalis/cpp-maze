@@ -1,9 +1,9 @@
 
 #include "maze/solver.h"
 #include <boost/optional/optional_io.hpp>
+#include <vector>
 #include "maze/base.h"
 #include "maze/builder.h"
-#include <vector>
 namespace maze {
 
 std::map<Direction, Direction> opposite_direction2{
@@ -12,13 +12,12 @@ std::map<Direction, Direction> opposite_direction2{
     {Direction::UP, Direction::DOWN},
     {Direction::DOWN, Direction::UP}};
 
-
 // Constructor
-Solver::Solver( const Maze& maze,
-        const Position& starting_position,
-        const Position& goal_position )
-      :_starting_position{starting_position},
-       _goal_position{goal_position} {_maze = maze;}
+Solver::Solver(const Maze& maze, const Position& starting_position,
+               const Position& goal_position)
+    : _starting_position{starting_position}, _goal_position{goal_position} {
+  _maze = maze;
+}
 // Special Member functions
 
 // virtual Solver()::~Solver() = default                   // dtor
@@ -49,13 +48,11 @@ void Solver::reset_maze() {
 // end
 
 boost::optional<Direction>
-Solver::use_smart_strategy_to_choose_next_forward_move()  {
-
+Solver::use_smart_strategy_to_choose_next_forward_move() {
   auto goal_position_ = look_for_exit_leading_to_goal_in_next_room();
   if (goal_position_ != boost::none) return *goal_position_;
 
-
-    auto current_room_ = current_room();
+  auto current_room_ = current_room();
   auto current_room_less_used_available_exits_ =
       (**current_room_).less_used_available_exits();
 
@@ -75,8 +72,8 @@ Solver::use_smart_strategy_to_choose_next_forward_move()  {
 //    == goal_position }
 //  end
 
-boost::optional<Direction> Solver::look_for_exit_leading_to_goal_in_next_room() {
-
+boost::optional<Direction>
+Solver::look_for_exit_leading_to_goal_in_next_room() {
   auto current_room_ = current_room();
   auto& available_exits_ = (**current_room_).available_exits();
   auto exit_iter =
@@ -124,14 +121,12 @@ boost::optional<Direction> Solver::look_for_exit_leading_to_goal_in_next_room() 
 void Solver::solve_maze() {
   logVar("", "Maze is now being solved, please wait.");
   reset_maze();
-  while ( *(current_position()) != _goal_position) {
-
+  while (*(current_position()) != _goal_position) {
     logVar("", "While loop started");
     auto current_position_ = current_position();
     auto current_room_ = current_room();
 
     if (use_smart_strategy_to_choose_next_forward_move() != boost::none) {
-
       auto next_direction_ =
           *(use_smart_strategy_to_choose_next_forward_move());
 
@@ -139,14 +134,15 @@ void Solver::solve_maze() {
           (current_position_ != boost::none)
               ? next_position(next_direction_, *current_position_)
               : boost::none;
-      auto  next_room_ =
+      auto next_room_ =
           (next_position_ != boost::none) ? room(*next_position_) : boost::none;
 
       (**current_room_).used_exits().push_back(next_direction_);
       _path.push_back((**next_room_).position());
       _visited_positions.push_back((**next_room_).position());
-      (**next_room_).visits_from().push_back(
-          maze::opposite_direction2.at(next_direction_));
+      (**next_room_)
+          .visits_from()
+          .push_back(maze::opposite_direction2.at(next_direction_));
 
     } else {
       logVar("", "GOING BACK");

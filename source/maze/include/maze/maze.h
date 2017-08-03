@@ -15,6 +15,8 @@ namespace maze {
 class MAZE_API Maze final {
   public:
     explicit Maze( int rows = 10, int columns = 10);             // constructor
+
+
       // MAZE_API boost::optional<Room> find_room(Position&  position) const;
       boost::optional< Room*>
       find_room(const Position& position) const;
