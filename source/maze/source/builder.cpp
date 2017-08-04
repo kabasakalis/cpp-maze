@@ -30,6 +30,8 @@ Builder::Builder(const Maze& maze) : _maze{maze} {
     _visited_positions.push_back(std::move(start));
 }
 
+
+
 int Builder::_random_integer(int lower, int upper) const {
   auto  seed = std::chrono::system_clock::now().time_since_epoch().count();
   std::default_random_engine generator(seed);
@@ -343,5 +345,10 @@ void Builder::build_maze() {
 
   // hello
 }
+
+
+const Maze& Builder::maze(){return _maze;}
+const Maze& Builder::path(){return _path;}
+
 
 }  // namespace maze
