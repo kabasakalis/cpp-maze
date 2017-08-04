@@ -21,7 +21,7 @@ release_build
 /lib
 /install
 lldb*
-
+core
 # Qt cache
 CMakeLists.txt.user
 CMakeLists.txt.user.*
