@@ -18,14 +18,15 @@ const int CURRENT_ROOM_POINTER_SIZE = 6;
 class MAZE_API Canvas final {
  public:
   explicit Canvas(const Maze&,
-                  const sf::Window&,
+                  // const sf::Window&,
                   const std::Vector<Position>&,
                   const std::Vector<Position>&,
                   const std::string);
 
 
-  // Member functions
+// Member functions
 
+void render();
 void draw_room(const Room& room, const int size = ROOM_SIZE, cont sf::Color& color = ROOM_COLOR );
 void draw_position(const Room&, room, const int position_size = CURRENT_ROOM_POINTER_SIZE, cont sf::Color& color = CURRENT_ROOM_POINTER_COLOR );
 

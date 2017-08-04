@@ -1,24 +1,41 @@
 
 //#include <memory>  // unique_ptr
 #include "canvas/canvas.h"
+#include <SFML/Window.hpp>
 #include <VertexArray.hpp>
-
 namespace maze {
 
 // Constructor
-Canvas::Canvas(const maze Maze&, const sf::Window& window,
-               const std::Vector<Position>& builder_path,
+Canvas::Canvas(const maze Maze&, const std::Vector<Position>& builder_path,
                const std::Vector<Position>& solver_path,
                const std::string window_title)
     : _maze{maze},
-      _window{window},
       _builder_path{builder_path},
       _solver_path{solver_path},
       _solver_path{solver_path},
       _window_title{window_title} {
-  _width = _maze.columns * ROOM_SIZE;
-  _height = maze.rows * ROOM_SIZE;
+  _width = _maze.columns() * ROOM_SIZE;
+  _height = _maze.rows() * ROOM_SIZE;
+  // _window = sf::RenderWindow window(sf::VideoMode(1600,900 ), "C++ Maze");
+  _window =
+      sf::RenderWindow window(sf::VideoMode(_width, _height), window_title);
+
   _rooms = _maze.rooms;
+}
+
+void render() {
+  sf::CircleShape shape(100.f);
+  shape.setFillColor(sf::Color::Green);
+  while (_window.isOpen()) {
+    sf::Event event;
+    while (_window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed) _window.close();
+    }
+
+    _window.clear();
+    _window.draw(shape);
+    _window.display();
+  };
 }
 
 // Member functions

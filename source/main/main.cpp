@@ -14,32 +14,35 @@
 #include "maze/utils.h"
 
 
-#include <SFML/Graphics.hpp>
+// #include <SFML/Window.hpp>
+// #include <SFML/Graphics.hpp>
 
 using namespace std;
 using namespace maze;
 using namespace utils;
 // int main(int argc, char *argv[]){
 
-int main()
+
+int main(int /*argc*/, char* /*argv*/ []) {
 {
-    sf::RenderWindow window(sf::VideoMode(1600,900 ), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+  Maze maze{10, 10};
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+  Builder builder{maze};
+  builder.build_maze();
+  Position start_position{1, 1};
+  Position goal_position{10, 10};
+  Solver solver{builder._maze, start_position , goal_position};
+  solver.solve_maze();
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+     Canvas canvas{
+       builder.maze(),
+       window,
+       builder.path(),
+       solver.path(),
+       ""
+     };
+
+    canvas.render();
 
     return 0;
 }
