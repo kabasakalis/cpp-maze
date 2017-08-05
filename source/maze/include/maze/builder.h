@@ -31,8 +31,8 @@ class MAZE_API Builder {
   virtual boost::optional<Room*> current_room();
   virtual boost::optional<const Position> next_position(const Direction&,
                                                        const Position&) const;
-  virtual const Maze& maze();
-  virtual const vector<Position>& path();
+  virtual const Maze& maze() const;
+  virtual const std::vector<Position>& path() const;
   // MAZE_API boost::optional< Room> room_to_left() const;
   // MAZE_API boost::optional< Room> room_to_right() const;
   // MAZE_API boost::optional< Room> room_to_up() const;

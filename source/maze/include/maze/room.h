@@ -23,7 +23,7 @@ class MAZE_API Room final {
   MAZE_API const int& y() const;
   MAZE_API const Position& position() const;
   MAZE_API std::vector<Direction>& visits_from();
-  MAZE_API std::vector<Direction>& available_exits();
+  MAZE_API const std::vector<Direction>& available_exits() const;
   MAZE_API std::vector<Direction>& used_exits() ;
   MAZE_API bool is_exit_free(const Direction& ) const;
   MAZE_API bool visited() const;

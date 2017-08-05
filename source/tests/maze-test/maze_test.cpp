@@ -1,6 +1,6 @@
 
 #include <gmock/gmock.h>
-#include <maze/maze.h>
+// #include <maze/maze.h>
 
 class maze_test: public testing::Test
 {
@@ -9,6 +9,6 @@ public:
 
 TEST_F(maze_test, ReturnOne)
 {
-    maze::Maze m;
+    // maze::Maze m;
     EXPECT_EQ( 1, 1);
 }

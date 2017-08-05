@@ -347,8 +347,8 @@ void Builder::build_maze() {
 }
 
 
-const Maze& Builder::maze(){return _maze;}
-const Maze& Builder::path(){return _path;}
+const Maze& Builder::maze() const {return _maze;}
+const std::vector<Position>& Builder::path() const {return _path;}
 
 
 }  // namespace maze

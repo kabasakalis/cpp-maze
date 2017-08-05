@@ -6,6 +6,7 @@
 #include "maze/builder.h"
 #include "maze/maze.h"
 #include "maze/solver.h"
+#include "maze/canvas.h"
 // #include "maze/room.h"
 
 #include <boost/optional/optional_io.hpp>
@@ -14,7 +15,7 @@
 #include "maze/utils.h"
 
 
-// #include <SFML/Window.hpp>
+#include <SFML/Window.hpp>
 // #include <SFML/Graphics.hpp>
 
 using namespace std;
@@ -24,7 +25,7 @@ using namespace utils;
 
 
 int main(int /*argc*/, char* /*argv*/ []) {
-{
+
   Maze maze{10, 10};
 
   Builder builder{maze};
@@ -34,17 +35,20 @@ int main(int /*argc*/, char* /*argv*/ []) {
   Solver solver{builder._maze, start_position , goal_position};
   solver.solve_maze();
 
+
+  sf::RenderWindow window{sf::VideoMode(1600,900 ), "C++ Maze"};
+
+
      Canvas canvas{
        builder.maze(),
-       window,
        builder.path(),
        solver.path(),
-       ""
      };
 
-    canvas.render();
+    canvas.render(window);
 
-    return 0;
+return 0;
+
 }
 
 // int main(int #<{(|argc|)}>#, char* #<{(|argv|)}># []) {

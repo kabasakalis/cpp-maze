@@ -5,6 +5,14 @@
 
 # find_package(THIRDPARTY REQUIRED)
 
+# Boost
+find_package(Boost CONFIG REQUIRED)
+
+# SFML
+find_package(SFML 2 REQUIRED network audio graphics window system)
+if (NOT SFML_FOUND)
+  message(FATAL_ERROR "Package SFML not found")
+endif (NOT SFML_FOUND)
 
 #
 # Library name and options
@@ -39,6 +47,7 @@ set(headers
     ${include_path}/maze.h
     ${include_path}/builder.h
     ${include_path}/solver.h
+    ${include_path}/canvas.h
 )
 
 set(sources
@@ -47,6 +56,7 @@ set(sources
   ${source_path}/maze.cpp
   ${source_path}/builder.cpp
   ${source_path}/solver.cpp
+  ${source_path}/canvas.cpp
 )
 
 # Group source files
@@ -124,7 +134,6 @@ set_target_properties(${target}
 # Include directories
 #
 
-find_package(Boost CONFIG REQUIRED)
 
 target_include_directories(${target}
     PRIVATE
@@ -135,6 +144,7 @@ target_include_directories(${target}
     PUBLIC
     ${DEFAULT_INCLUDE_DIRECTORIES}
     ${Boost_INCLUDE_DIRS}          #Boost
+    ${SFML_INCLUDE_DIR}
 
     INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -151,7 +161,8 @@ target_link_libraries(${target}
 
     PUBLIC
     ${DEFAULT_LIBRARIES}
-
+    ${SFML_LIBRARIES}
+    ${SFML_DEPENDENCIES}
     INTERFACE
 )
 
