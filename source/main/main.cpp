@@ -37,7 +37,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
 
 
   sf::RenderWindow window{sf::VideoMode(1600,900 ), "C++ Maze"};
-
+window.setFramerateLimit(10);
 
      Canvas canvas{
        builder.maze(),
