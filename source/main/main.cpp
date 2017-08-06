@@ -8,6 +8,7 @@
 #include "maze/solver.h"
 #include "maze/canvas.h"
 // #include "maze/room.h"
+#include "maze/utils.h"
 
 #include <boost/optional/optional_io.hpp>
 
@@ -36,7 +37,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
   solver.solve_maze();
 
 
-  sf::RenderWindow window{sf::VideoMode(1600,900 ), "C++ Maze"};
+  sf::RenderWindow window{sf::VideoMode(maze.columns() * ROOM_SIZE, maze.rows() * ROOM_SIZE ), "C++ Maze"};
 window.setFramerateLimit(10);
 
      Canvas canvas{
@@ -45,7 +46,7 @@ window.setFramerateLimit(10);
        solver.path(),
      };
 
-    canvas.render(window);
+    canvas.draw_builder_path(window);
 
 return 0;
 

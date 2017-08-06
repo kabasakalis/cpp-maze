@@ -2,10 +2,9 @@
 //#include <memory>  // unique_ptr
 
 #include "maze/builder.h"
+#include "maze/utils.h"
 #include <algorithm>
 #include <boost/optional.hpp>
-#include <random>
-#include <chrono>
 #include <boost/optional/optional_io.hpp>
 #include <functional>   // std::reference_wrapper
 class Room;
@@ -25,19 +24,11 @@ Builder::Builder() {};
 
 // Constructor
 Builder::Builder(const Maze& maze) : _maze{maze} {
-    Position start{ _random_integer(1, _maze.rows()), _random_integer(1, _maze.columns())};
+    Position start{ random_integer(1, _maze.rows()), random_integer(1, _maze.columns())};
     _path.push_back(std::move(start));
     _visited_positions.push_back(std::move(start));
 }
 
-
-
-int Builder::_random_integer(int lower, int upper) const {
-  auto  seed = std::chrono::system_clock::now().time_since_epoch().count();
-  std::default_random_engine generator(seed);
-  std::uniform_int_distribution<int> distribution(lower, upper);
-  return distribution(generator);
-}
 
  boost::optional<Position>  Builder::current_position() const {
   boost::optional<Position>  last = _visited_positions.rbegin()[0];
@@ -296,7 +287,11 @@ void Builder::build_maze() {
      // logVar(current_room_ == boost::none, "CURRENT ROOM = NONE");
     if  (!valid_rooms_to_build_.empty()) {
         logVar( valid_rooms_to_build_.size(),  "Valid rooms number in buildmaze");
-        Room& next_room = valid_rooms_to_build_.front().get();
+        // Room& next_room = valid_rooms_to_build_.back().get();
+        // auto random_index = static_cast<unsigned int>(random_integer(0, valid_rooms_to_build_.size() - 1 ));
+        // Room& next_room = valid_rooms_to_build_.at(random_index).get();
+        Room& next_room = random_element(valid_rooms_to_build_).get();
+        //   Room& next_room = valid_rooms_to_build_.at(_random_integer(0, valid_rooms_to_build_.size() - 1 )).get();
         logVar(next_room, " next_room to build");
         auto direction = determine_direction(next_room);
         logVar(*direction, "DETERMINED DIR");

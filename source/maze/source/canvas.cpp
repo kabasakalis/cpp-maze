@@ -13,7 +13,7 @@ namespace maze {
 
 // Constructor
 Canvas::Canvas(const Maze& maze, const std::vector<Position>& builder_path,
-               const std::vector<Position>& solver_path )
+               const std::vector<Position>& solver_path)
     : _maze{maze}, _builder_path{builder_path}, _solver_path{solver_path} {
   _width = _maze.columns() * ROOM_SIZE;
   _height = _maze.rows() * ROOM_SIZE;
@@ -22,12 +22,12 @@ Canvas::Canvas(const Maze& maze, const std::vector<Position>& builder_path,
   NULL_POSITION.y = 0;
 }
 
-void Canvas::render(sf::RenderWindow& window) {
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+void Canvas::draw_builder_path(sf::RenderWindow& window) {
+  // sf::CircleShape shape(100.f);
+  // shape.setFillColor(sf::Color::Green);
   // run the program as long as the window is open
-
-  std::vector<Position> visited_positions;
+   _visited_positions.clear();
+  // std::vector<Position> visited_positions;
   while (window.isOpen()) {
     // check all the window's events that were triggered since the last
     // iteration of the loop
@@ -36,36 +36,22 @@ void Canvas::render(sf::RenderWindow& window) {
       // "close requested" event: we close the window
       if (event.type == sf::Event::Closed) window.close();
     }
-
-    // draw_maze(window, true);
-    // clear the window with black color
     window.clear(sf::Color::Black);
-
-    // draw everything here...
-    // window.draw(...);
-
-    // window.draw(shape);
-
-    Position previous_position{NULL_POSITION};
     Position position{NULL_POSITION};
     boost::optional<Room*> room;
-    previous_position = !visited_positions.empty() ? visited_positions.back() :  NULL_POSITION;
+    // draw rooms
+    draw_built_maze(window);
+    // draw builder
     position = !_builder_path.empty() ? _builder_path.front() : NULL_POSITION;
-    if (!is_null(position)) visited_positions.push_back(position);
+    if (!is_null(position)) _visited_positions.push_back(position);
     if (!_builder_path.empty()) _builder_path.erase(_builder_path.begin());
-    if ( is_null(position)) room = _maze.find_room(position);
-    if (room != boost::none) {
-      draw_room(window, **room);
-      draw_walls(window, **room);
-      draw_position(window, **room);
-    };
-
-    auto previous_room = (!is_null(previous_position)) ? _maze.find_room(previous_position) : boost::none;
-    if (previous_room != boost::none) draw_position(window, **previous_room);
-
-  // end the current frame
-  window.display();
-}//window open
+    // draw the builder,if position is null it's the last position.
+    room = !is_null(position) ? _maze.find_room(position)
+                              : _maze.find_room(_visited_positions.back());
+    if (room != boost::none) draw_position(window, **room);
+    // end the current frame
+    window.display();
+  }  // window open
 }
 
 // void Canvas::draw_builder_path() {
@@ -129,24 +115,27 @@ int Canvas::to_canvas_coordinate(int room_coordinate) {
   return (room_coordinate - 1) * ROOM_SIZE;
 };
 
-void Canvas::draw_maze(sf::RenderWindow& window, bool built) {
+void Canvas::draw_built_maze(sf::RenderWindow& window) {
   for (auto room : _rooms) {
     draw_room(window, room);
-    built ? draw_walls(window, room, WALL_COLOR) : draw_all_walls(window, room, WALL_COLOR);
+    (std::find(_visited_positions.begin(), _visited_positions.end(),
+               room.position()) != _visited_positions.end())
+        ? draw_walls(window, room)
+        : draw_all_walls(window, room);
   }
 }
 
-void Canvas::draw_room( sf::RenderWindow& window , const Room& room, const int size,
-                       const sf::Color& color) {
+void Canvas::draw_room(sf::RenderWindow& window, const Room& room,
+                       const int size, const sf::Color& color) {
   auto canvas_x = to_canvas_coordinate(room.x());
   auto canvas_y = to_canvas_coordinate(room.y());
 
   sf::VertexArray quad(sf::Quads, 4);
 
   quad[0].position = sf::Vector2f(canvas_x, canvas_y);
-  quad[1].position = sf::Vector2f(canvas_x + ROOM_SIZE, canvas_y);
-  quad[2].position = sf::Vector2f(canvas_x + ROOM_SIZE, canvas_y + ROOM_SIZE);
-  quad[3].position = sf::Vector2f(canvas_x, canvas_y + ROOM_SIZE);
+  quad[1].position = sf::Vector2f(canvas_x + size, canvas_y);
+  quad[2].position = sf::Vector2f(canvas_x + size, canvas_y + size);
+  quad[3].position = sf::Vector2f(canvas_x, canvas_y + size);
 
   // define its texture area to be a 25x50 rectangle starting at (0, 0)
   quad[0].color = color;
@@ -157,8 +146,8 @@ void Canvas::draw_room( sf::RenderWindow& window , const Room& room, const int s
   window.draw(quad);
 }
 
-void Canvas::draw_position( sf::RenderWindow& window, const Room& room, const int position_size,
-                           const sf::Color& color) {
+void Canvas::draw_position(sf::RenderWindow& window, const Room& room,
+                           const int position_size, const sf::Color& color) {
   auto pointer_x = to_canvas_coordinate(room.x());
   auto pointer_y = to_canvas_coordinate(room.y());
 
@@ -186,15 +175,15 @@ void Canvas::draw_position( sf::RenderWindow& window, const Room& room, const in
   window.draw(quad);
 }
 
-void Canvas::color_room( sf::RenderWindow& window, const Room& room, const int size,
-                        const sf::Color& color) {
-  auto pointer_x = to_canvas_coordinate(room.x());
-  auto pointer_y = to_canvas_coordinate(room.y());
-  draw_room(window, room, size, color);
-}
+// void Canvas::color_room(sf::RenderWindow& window, const Room& room,
+//                         const int size, const sf::Color& color) {
+//   auto pointer_x = to_canvas_coordinate(room.x());
+//   auto pointer_y = to_canvas_coordinate(room.y());
+//   draw_room(window, room, size, color);
+// }
 
-void Canvas::draw_wall( sf::RenderWindow& window, const Room& room, const Direction side,
-                       const sf::Color& color) {
+void Canvas::draw_wall(sf::RenderWindow& window, const Room& room,
+                       const Direction side, const sf::Color& color) {
   auto canvas_x = to_canvas_coordinate(room.x());
   auto canvas_y = to_canvas_coordinate(room.y());
   sf::Vector2f top_left, top_right, bottom_right, bottom_left;
@@ -253,7 +242,8 @@ void Canvas::draw_wall( sf::RenderWindow& window, const Room& room, const Direct
   window.draw(quad);
 }
 
-void Canvas::draw_walls( sf::RenderWindow& window,  const Room& room, const sf::Color& color) {
+void Canvas::draw_walls(sf::RenderWindow& window, const Room& room,
+                        const sf::Color& color) {
   for (auto side : DIRECTIONS) {
     auto exits = room.available_exits();
     auto it = find_if(exits.begin(), exits.end(),
@@ -262,7 +252,18 @@ void Canvas::draw_walls( sf::RenderWindow& window,  const Room& room, const sf::
   };
 }
 
-void Canvas::draw_all_walls( sf::RenderWindow& window, const Room& room, const sf::Color& color) {
+void Canvas::break_walls(sf::RenderWindow& window, const Room& room,
+                         const sf::Color& color) {
+  for (auto side : DIRECTIONS) {
+    auto exits = room.available_exits();
+    auto it = find_if(exits.begin(), exits.end(),
+                      [side](const Direction& exit) { return exit == side; });
+    if (it != exits.end()) draw_wall(window, room, side, color);
+  };
+}
+
+void Canvas::draw_all_walls(sf::RenderWindow& window, const Room& room,
+                            const sf::Color& color) {
   for (auto side : DIRECTIONS) {
     draw_wall(window, room, side, color);
   };

@@ -14,10 +14,6 @@ class MAZE_API Builder {
   explicit Builder(const Maze&);  // constructor
 
   virtual ~Builder() = default;                    // dtor
-  // Builder(const Builder& rhs) = delete;         // copy constructor
-  // Builder& operator=(const Builder& rhs) = delete;  // copy assignment
-  // Builder(Builder&& rhs) = delete;                  // move constructor
-  // Builder& operator=(Builder&& rhs) = delete;       // move assignment
 
   // Member functions
  void build_maze();
@@ -42,7 +38,7 @@ class MAZE_API Builder {
   MAZE_API Rooms valid_rooms_to_build() const;
   MAZE_API void  build_room( Room& a_room, const Direction& exit_to_free);
 
-  MAZE_API int _random_integer(int upper, int lower) const;
+  // MAZE_API int _random_integer(int upper, int lower) const;
 
 //  protected:
   Maze _maze;

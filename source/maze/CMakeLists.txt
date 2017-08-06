@@ -51,6 +51,7 @@ set(headers
 )
 
 set(sources
+  ${source_path}/utils.cpp
   ${source_path}/base.cpp
   ${source_path}/room.cpp
   ${source_path}/maze.cpp

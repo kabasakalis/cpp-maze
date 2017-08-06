@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-
+#include <random>
+#include <vector>
 namespace utils {
 
 template <class T>
@@ -32,4 +33,15 @@ void log(const Container& c, std::string message, std::string sep = ", ") {
   std::cout << "\n";
 }
 
+template <typename T>
+T random_element(std::vector<T> v) {
+	std::random_device random_device;
+	std::mt19937 engine{random_device()};
+	std::uniform_int_distribution<unsigned long> dist(0, v.size() - 1);
+	// T random_element = v[dist(engine)];
+return  v.at(dist(engine));
+
+}
+
+int random_integer(int lower, int upper);
 }

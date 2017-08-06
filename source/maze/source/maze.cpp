@@ -24,6 +24,7 @@ Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
 }
 
 
+// Maze::Maze() {}
 
 boost::optional<Room*>
 Maze::find_room(const Position& position) const  {
