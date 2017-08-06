@@ -5,23 +5,6 @@
 #include "maze/room.h"
 using namespace utils;
 namespace maze {
-void testfunction() { std::cout << "testfunction ran" << std::endl; }
-void printMaze() { std::cout << "maze::printMaze" << std::endl; }
-
-
-
-// bool Position::operator==(const Position& rhs) const {
-//  return (x == rhs.x && y == rhs.y);
-// };
-
-
-
-
-// bool Position::operator==(const Position& rhs)const{
-//   std::cout << "Positionoperator overloaded ==  " << rhs.y;
-//  return (x == rhs.x && y == rhs.y);
-// }
-
 
 
 std::map<Direction, std::string> direction_name{
@@ -30,6 +13,7 @@ std::map<Direction, std::string> direction_name{
     {Direction::UP, "UP"},
     {Direction::DOWN, "DOWN"},
 };
+
 
 
 

@@ -14,16 +14,16 @@ namespace maze {
 // Constructor
 Canvas::Canvas(const Maze& maze, const std::vector<Position>& builder_path,
                const std::vector<Position>& solver_path)
-    : _maze{maze}, _builder_path{builder_path}, _solver_path{solver_path} {
+    : _maze{maze}, _builder_path{builder_path}, _solver_path{solver_path}{
   _width = _maze.columns() * ROOM_SIZE;
   _height = _maze.rows() * ROOM_SIZE;
   _rooms = _maze.rooms();
-  NULL_POSITION.x = 0;
-  NULL_POSITION.y = 0;
+
 }
 
-void Canvas::draw_builder_path(sf::RenderWindow& window) {
+void Canvas::draw_path(sf::RenderWindow& window, Position start_position, Position goal_position, Mode mode ) {
    _visited_positions.clear();
+  auto path =  (mode == Mode::BUILD) ?  _builder_path : _solver_path;
   while (window.isOpen()) {
     // check all the window's events that were triggered since the last
     // iteration of the loop
@@ -36,49 +36,21 @@ void Canvas::draw_builder_path(sf::RenderWindow& window) {
     Position position{NULL_POSITION};
     boost::optional<Room*> room;
     // draw rooms
-    draw_built_maze(window);
-    // draw builder
-    position = !_builder_path.empty() ? _builder_path.front() : NULL_POSITION;
-    if (!is_null(position)) _visited_positions.push_back(position);
-    if (!_builder_path.empty()) _builder_path.erase(_builder_path.begin());
-    // draw the builder,if position is null it's the last position.
-    room = !is_null(position) ? _maze.find_room(position)
-                              : _maze.find_room(_visited_positions.back());
-    if (room != boost::none) draw_position(window, **room);
-    // end the current frame
-    window.display();
-  }  // window open
-}
-
-
-void Canvas::draw_solver_path(sf::RenderWindow& window, Position start_position, Position goal_position) {
-  // run the program as long as the window is open
-   _visited_positions.clear();
-  while (window.isOpen()) {
-    // check all the window's events that were triggered since the last
-    // iteration of the loop
-    sf::Event event;
-    while (window.pollEvent(event)) {
-      // "close requested" event: we close the window
-      if (event.type == sf::Event::Closed) window.close();
-    }
-    window.clear(sf::Color::Black);
-    Position position{NULL_POSITION};
-
-    boost::optional<Room*> room;
-    // draw rooms
+       if (mode == Mode::SOLVE) {
     draw_solved_maze(window);
-
+    // Paint start and goal rooms blue and red respectively.
     auto start_room = _maze.find_room(start_position);
     auto goal_room = _maze.find_room(goal_position);
     color_room(window, **start_room, ROOM_SIZE, sf::Color::Blue);
     color_room(window, **goal_room, ROOM_SIZE, sf::Color::Red);
-
+       }else {
+        draw_built_maze(window);
+       };
 
     // draw builder
-    position = !_solver_path.empty() ? _solver_path.front() : NULL_POSITION;
+    position = !path.empty() ? path.front() : NULL_POSITION;
     if (!is_null(position)) _visited_positions.push_back(position);
-    if (!_solver_path.empty()) _solver_path.erase(_solver_path.begin());
+    if (!path.empty()) path.erase(path.begin());
     // draw the builder,if position is null it's the last position.
     room = !is_null(position) ? _maze.find_room(position)
                               : _maze.find_room(_visited_positions.back());
@@ -96,7 +68,7 @@ bool Canvas::is_null(const Position& position) {
 // Member functions
 int Canvas::to_canvas_coordinate(int room_coordinate) {
   return (room_coordinate - 1) * ROOM_SIZE;
-};
+}
 
 void Canvas::draw_built_maze(sf::RenderWindow& window) {
   for (auto room : _rooms) {

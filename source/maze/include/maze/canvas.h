@@ -2,7 +2,6 @@
 #pragma once
 
 #include <maze/maze_api.h>
-// #include <Color.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include  "maze/maze.h"
@@ -19,6 +18,8 @@ const sf::Color WALL_COLOR = sf::Color::Cyan;
 const sf::Color BUILDER_COLOR = sf::Color::Black;
 const sf::Color CURRENT_ROOM_POINTER_COLOR = sf::Color::Yellow;
 const int CURRENT_ROOM_POINTER_SIZE = 6;
+const Position NULL_POSITION = Position{0,0};
+
 class MAZE_API Canvas final {
  public:
   explicit Canvas(const Maze&,
@@ -28,8 +29,7 @@ class MAZE_API Canvas final {
 
 // Member functions
 
-void draw_builder_path(  sf::RenderWindow& );
-void draw_solver_path(  sf::RenderWindow&, Position start_position, Position goal_position);
+void draw_path( sf::RenderWindow&, Position start_position , Position goal_position, Mode mode = Mode::SOLVE );
 void draw_room( sf::RenderWindow&,  const Room& room, const int size = ROOM_SIZE, const sf::Color& color = ROOM_COLOR );
 void draw_position(sf::RenderWindow&, const Room& room, const int position_size = CURRENT_ROOM_POINTER_SIZE, const sf::Color& color = CURRENT_ROOM_POINTER_COLOR );
 
@@ -57,7 +57,6 @@ bool is_null(const Position& position);
   int _width;
   int _height;
 
-  Position NULL_POSITION;
 };
 
 }  // namespace maze

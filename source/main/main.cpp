@@ -19,12 +19,19 @@ using namespace utils;
 //   int main(int argc, char *argv[]){
 
 int main(int /*argc*/, char* /*argv*/ []) {
-  Maze maze{10, 10};
+
+  auto maze_rows= 10;
+  auto maze_columns= 10;
+
+  Maze maze{maze_rows, maze_columns};
+  const Position DEFAULT_START_POSITION{1, 1};
+  const Position DEFAULT_GOAL_POSITION{maze_columns, maze_rows};
+
+  auto start_position = DEFAULT_START_POSITION;
+  auto goal_position = DEFAULT_GOAL_POSITION;
 
   Builder builder{maze};
   builder.build_maze();
-  Position start_position{1, 1};
-  Position goal_position{10, 10};
   Solver solver{builder._maze, start_position, goal_position};
   solver.solve_maze();
 
@@ -38,8 +45,7 @@ int main(int /*argc*/, char* /*argv*/ []) {
       builder.maze(), builder.path(), solver.path(),
   };
 
-  // canvas.draw_builder_path(window);
-  canvas.draw_solver_path(window, start_position, goal_position);
+  canvas.draw_path(window,start_position,goal_position , Mode::BUILD);
 
   return 0;
 }

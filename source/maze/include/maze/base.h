@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <maze/maze_api.h>
@@ -5,6 +6,7 @@
 #include <map>
 #include <iostream>
 #include <vector>
+
 namespace maze {
 class Room;  // forward declaration
 
@@ -14,6 +16,7 @@ const int COLUMNS_MIN = 1;
 const int COLUMNS_MAX = 73;
 
 enum Direction { LEFT, RIGHT, UP, DOWN };
+enum Mode { BUILD, SOLVE };
 const std::vector<Direction> DIRECTIONS{
     {Direction::LEFT, Direction::RIGHT, Direction::UP, Direction::DOWN}};
 
@@ -27,16 +30,10 @@ friend bool operator!=(const maze::Position&, const maze::Position&);
 };
 
 
-// std::map<Direction, Direction> opposite_direction;
 
-
-MAZE_API void printMaze();
-MAZE_API void testfunction();
 MAZE_API void logDirVector(const std::vector<Direction>&, std::string);
 
-
 }  // namespace maze
-
 
 
 MAZE_API bool maze::operator==(const maze::Position& , const maze::Position& rhs) ;
