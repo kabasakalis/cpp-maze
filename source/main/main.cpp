@@ -2,19 +2,13 @@
 #include <iostream>
 
 #include <baselib/baselib.h>
+// #include "maze/utils.h"
+#include <boost/optional/optional_io.hpp>
 #include "maze/base.h"
 #include "maze/builder.h"
+#include "maze/canvas.h"
 #include "maze/maze.h"
 #include "maze/solver.h"
-#include "maze/canvas.h"
-// #include "maze/room.h"
-#include "maze/utils.h"
-
-#include <boost/optional/optional_io.hpp>
-
-
-#include "maze/utils.h"
-
 
 #include <SFML/Window.hpp>
 // #include <SFML/Graphics.hpp>
@@ -22,34 +16,32 @@
 using namespace std;
 using namespace maze;
 using namespace utils;
-// int main(int argc, char *argv[]){
-
+//   int main(int argc, char *argv[]){
 
 int main(int /*argc*/, char* /*argv*/ []) {
-
   Maze maze{10, 10};
 
   Builder builder{maze};
   builder.build_maze();
   Position start_position{1, 1};
   Position goal_position{10, 10};
-  Solver solver{builder._maze, start_position , goal_position};
+  Solver solver{builder._maze, start_position, goal_position};
   solver.solve_maze();
 
+  sf::RenderWindow window{
+      sf::VideoMode(static_cast<unsigned int>(maze.columns() * ROOM_SIZE),
+                    static_cast<unsigned int>(maze.rows() * ROOM_SIZE)),
+      "C++ Maze"};
+  window.setFramerateLimit(10);
 
-  sf::RenderWindow window{sf::VideoMode(maze.columns() * ROOM_SIZE, maze.rows() * ROOM_SIZE ), "C++ Maze"};
-window.setFramerateLimit(10);
+  Canvas canvas{
+      builder.maze(), builder.path(), solver.path(),
+  };
 
-     Canvas canvas{
-       builder.maze(),
-       builder.path(),
-       solver.path(),
-     };
+  // canvas.draw_builder_path(window);
+  canvas.draw_solver_path(window, start_position, goal_position);
 
-    canvas.draw_builder_path(window);
-
-return 0;
-
+  return 0;
 }
 
 // int main(int #<{(|argc|)}>#, char* #<{(|argv|)}># []) {
@@ -133,7 +125,8 @@ return 0;
 //   // logDirVector(DIRECTIONS, "DIRECTIONS");
 //   // logDirVector(r._used_exits, "USED EXITS");
 //   // logDirVector(r._visits_from, "VISITS FROM");
-//   // logDirVector(r.less_used_available_exits(), "less_used_available_exits");
+//   // logDirVector(r.less_used_available_exits(),
+//   "less_used_available_exits");
 //   // if (r.unused_available_exits() != boost::none) {
 //   //   logVar(r.unused_available_exits()->size(),
 //   //          "SIZE of unused available_exits");

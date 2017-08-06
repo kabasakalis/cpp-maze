@@ -23,11 +23,7 @@ Canvas::Canvas(const Maze& maze, const std::vector<Position>& builder_path,
 }
 
 void Canvas::draw_builder_path(sf::RenderWindow& window) {
-  // sf::CircleShape shape(100.f);
-  // shape.setFillColor(sf::Color::Green);
-  // run the program as long as the window is open
    _visited_positions.clear();
-  // std::vector<Position> visited_positions;
   while (window.isOpen()) {
     // check all the window's events that were triggered since the last
     // iteration of the loop
@@ -54,57 +50,44 @@ void Canvas::draw_builder_path(sf::RenderWindow& window) {
   }  // window open
 }
 
-// void Canvas::draw_builder_path() {
-//   // previous_position = visited_positions.last
-//   // visited_positions << position = builder.path.shift
-//   // if position
-//   //   room = maze.find_room(position)
-//   //   draw_room(room, ROOM_SIZE, BUILDER_COLOR)
-//   //   draw_walls(room, WALL_COLOR)
-//   //   draw_position room
-//   //   previous_room = maze.find_room(previous_position)
-//   //   draw_position(previous_room,
-//   //     CURRENT_ROOM_POINTER_SIZE,
-//   //     BUILDER_COLOR) if previous_room
-//   //
-// }
-// def draw_builder_path
-//   visited_positions = []
-//   update do
-//     previous_position = visited_positions.last
-//     visited_positions << position = builder.path.shift
-//     if position
-//       room = maze.find_room(position)
-//       draw_room(room, ROOM_SIZE, BUILDER_COLOR)
-//       draw_walls(room, WALL_COLOR)
-//       draw_position room
-//       previous_room = maze.find_room(previous_position)
-//       draw_position(previous_room,
-//         CURRENT_ROOM_POINTER_SIZE,
-//         BUILDER_COLOR) if previous_room
-//     end
-//     ::Kernel.sleep(@sleep || 0.0)
-//   end
-// end
 
-// void Canvas::draw_solver_path() {}
-// // def draw_solver_path
-// //   visited_positions = []
-// //   color_room(solver.starting_position, ROOM_SIZE, 'red')
-// //   color_room(solver.goal_position, ROOM_SIZE, 'blue')
-// //   update do
-// //     previous_position = visited_positions.last
-// //     visited_positions << position = solver.path.shift
-// //     if position
-// //       room = maze.find_room(position)
-// //       draw_position room
-// //       previous_room = maze.find_room(previous_position)
-// //       draw_position(previous_room, CURRENT_ROOM_POINTER_SIZE, 'olive') if
-// //       previous_room
-// //     end
-// //     ::Kernel.sleep(@sleep || 0.0)
-// //   end
-// // end
+void Canvas::draw_solver_path(sf::RenderWindow& window, Position start_position, Position goal_position) {
+  // run the program as long as the window is open
+   _visited_positions.clear();
+  while (window.isOpen()) {
+    // check all the window's events that were triggered since the last
+    // iteration of the loop
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      // "close requested" event: we close the window
+      if (event.type == sf::Event::Closed) window.close();
+    }
+    window.clear(sf::Color::Black);
+    Position position{NULL_POSITION};
+
+    boost::optional<Room*> room;
+    // draw rooms
+    draw_solved_maze(window);
+
+    auto start_room = _maze.find_room(start_position);
+    auto goal_room = _maze.find_room(goal_position);
+    color_room(window, **start_room, ROOM_SIZE, sf::Color::Blue);
+    color_room(window, **goal_room, ROOM_SIZE, sf::Color::Red);
+
+
+    // draw builder
+    position = !_solver_path.empty() ? _solver_path.front() : NULL_POSITION;
+    if (!is_null(position)) _visited_positions.push_back(position);
+    if (!_solver_path.empty()) _solver_path.erase(_solver_path.begin());
+    // draw the builder,if position is null it's the last position.
+    room = !is_null(position) ? _maze.find_room(position)
+                              : _maze.find_room(_visited_positions.back());
+    if (room != boost::none) draw_position(window, **room);
+    // end the current frame
+    window.display();
+  }  // window open
+}
+
 
 bool Canvas::is_null(const Position& position) {
   return (position == NULL_POSITION);
@@ -122,6 +105,12 @@ void Canvas::draw_built_maze(sf::RenderWindow& window) {
                room.position()) != _visited_positions.end())
         ? draw_walls(window, room)
         : draw_all_walls(window, room);
+  }
+}
+void Canvas::draw_solved_maze(sf::RenderWindow& window) {
+  for (auto room : _rooms) {
+    draw_room(window, room);
+    draw_walls(window, room);
   }
 }
 
@@ -175,12 +164,11 @@ void Canvas::draw_position(sf::RenderWindow& window, const Room& room,
   window.draw(quad);
 }
 
-// void Canvas::color_room(sf::RenderWindow& window, const Room& room,
-//                         const int size, const sf::Color& color) {
-//   auto pointer_x = to_canvas_coordinate(room.x());
-//   auto pointer_y = to_canvas_coordinate(room.y());
-//   draw_room(window, room, size, color);
-// }
+void Canvas::color_room(sf::RenderWindow& window, const Room& room,
+                        const int size, const sf::Color& color) {
+  draw_room(window, room, size, color);
+  draw_walls(window, room);
+}
 
 void Canvas::draw_wall(sf::RenderWindow& window, const Room& room,
                        const Direction side, const sf::Color& color) {
