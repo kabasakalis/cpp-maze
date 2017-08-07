@@ -11,7 +11,7 @@ namespace maze {
 class Room;  // forward declaration
 
 const int ROWS_MIN = 1;
-const int ROWS_MAX = 40;
+const int ROWS_MAX = 38;
 const int COLUMNS_MIN = 1;
 const int COLUMNS_MAX = 73;
 

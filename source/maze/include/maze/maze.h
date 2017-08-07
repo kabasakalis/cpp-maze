@@ -40,8 +40,8 @@ class MAZE_API Maze final {
       const int& columns() const;
       std::vector<Room> _rooms;
   private:
-    int _rows;
     int _columns;
+    int _rows;
   };
 
 }  // namespace maze

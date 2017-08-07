@@ -13,16 +13,15 @@ namespace maze {
 
 
 // Constructor
-Maze::Maze(int rows, int columns) : _rows{rows}, _columns{columns} {
+Maze::Maze(int columns, int rows) : _columns{columns}, _rows{rows}  {
   for (int x = 1; x <= _rows; ++x) {
     for (int y = 1; y <= _columns; ++y) {
-      Position position{x, y};
+      Position position{y, x};
       Room room{position};
       _rooms.push_back(room);
     }
   }
 }
-
 
 // Maze::Maze() {}
 

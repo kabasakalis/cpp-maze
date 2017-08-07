@@ -24,7 +24,7 @@ Builder::Builder() {};
 
 // Constructor
 Builder::Builder(const Maze& maze) : _maze{maze} {
-    Position start{ random_integer(1, _maze.rows()), random_integer(1, _maze.columns())};
+    Position start{ random_integer(1, _maze.columns()), random_integer(1, _maze.rows())};
     _path.push_back(std::move(start));
     _visited_positions.push_back(std::move(start));
 }
@@ -320,23 +320,23 @@ void Builder::build_maze() {
   logVar(_path.size(), " steps: ");
 
 
-   Position p11{1,1};
-   Position p12{1,2};
-   Position p22{2,2};
-   Position p21{2,1};
-   Position p99{9,9};
-
-   auto r11= _maze.find_room(p11);
-   auto r12= _maze.find_room(p12);
-   auto r21= _maze.find_room(p21);
-   auto r22= _maze.find_room(p22);
-   auto r99= _maze.find_room(p99);
-
-  logDirVector( (**r11)._visits_from, "r11.visits_from");
-  logDirVector( (**r12)._visits_from, "r12.visits_from");
-  logDirVector( (**r21)._visits_from, "r21.visits_from");
-  logDirVector( (**r22)._visits_from, "r22.visits_from");
-  logDirVector( (**r99)._visits_from, "r99.visits_from");
+  //  Position p11{1,1};
+  //  Position p12{1,2};
+  //  Position p22{2,2};
+  //  Position p21{2,1};
+  //  Position p99{9,9};
+  //
+  //  auto r11= _maze.find_room(p11);
+  //  auto r12= _maze.find_room(p12);
+  //  auto r21= _maze.find_room(p21);
+  //  auto r22= _maze.find_room(p22);
+  //  auto r99= _maze.find_room(p99);
+  //
+  // logDirVector( (**r11)._visits_from, "r11.visits_from");
+  // logDirVector( (**r12)._visits_from, "r12.visits_from");
+  // logDirVector( (**r21)._visits_from, "r21.visits_from");
+  // logDirVector( (**r22)._visits_from, "r22.visits_from");
+  // logDirVector( (**r99)._visits_from, "r99.visits_from");
 
   // hello
 }

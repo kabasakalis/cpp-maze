@@ -12,7 +12,7 @@
 #
 
 # Target name
-set(target main)
+set(target cppmaze)
 
 # Exit here if required dependencies are not met
 message(STATUS "Main ${target}")
