@@ -5,6 +5,7 @@
 #include <vector>
 namespace utils {
 
+// log basic types
 template <class T>
 void logVar(const T& var, std::string message = "Logging") {
   std::cout << message << "\n";
@@ -13,6 +14,7 @@ void logVar(const T& var, std::string message = "Logging") {
   return;
 }
 
+// log maps
 template <typename Key, typename Value>
 std::ostream& operator<<(std::ostream& os,
                          const std::pair<const Key, Value>& p) {
@@ -33,6 +35,7 @@ void log(const Container& c, std::string message, std::string sep = ", ") {
   std::cout << "\n";
 }
 
+// random container element
 template <typename T>
 T random_element(std::vector<T> v) {
 	std::random_device random_device;

@@ -1,4 +1,5 @@
 
+#include <chrono>
 #include "maze/solver.h"
 #include <boost/optional/optional_io.hpp>
 #include <vector>
@@ -6,31 +7,13 @@
 #include "maze/builder.h"
 namespace maze {
 
-std::map<Direction, Direction> opposite_direction2{
-    {Direction::LEFT, Direction::RIGHT},
-    {Direction::RIGHT, Direction::LEFT},
-    {Direction::UP, Direction::DOWN},
-    {Direction::DOWN, Direction::UP}};
-
 // Constructor
 Solver::Solver(const Maze& maze, const Position& starting_position,
                const Position& goal_position)
     : _starting_position{starting_position}, _goal_position{goal_position} {
   _maze = maze;
 }
-// Special Member functions
 
-// virtual Solver()::~Solver() = default                   // dtor
-// Solver::Solver(const Solver& rhs) = default;                   // copy
-// constructor
-// Solver& Solver::operator=(const Solver& rhs) = default;         // copy
-// assignment
-// Solver::Solver(Solver&& rhs) = default;                         // move
-// constructor
-// Solver& Solver::operator=(Solver&& rhs ) = default;             // move
-// assignment
-
-// Member functions
 void Solver::reset_maze() {
   for (Room& room : _maze.rooms()) {
     room.visits_from().clear();
@@ -40,12 +23,6 @@ void Solver::reset_maze() {
   _path.push_back(_starting_position);
   _visited_positions.push_back(_starting_position);
 }
-
-// def use_smart_strategy_to_choose_next_forward_move
-//   look_for_exit_leading_to_goal_in_next_room ||
-//     current_room.less_used_available_exits.detect { |exit| exit !=
-//     current_room.visits_from.last }
-// end
 
 boost::optional<Direction>
 Solver::use_smart_strategy_to_choose_next_forward_move() {
@@ -66,11 +43,6 @@ Solver::use_smart_strategy_to_choose_next_forward_move() {
     return *exit_iter;
   return boost::none;
 }
-
-// def look_for_exit_leading_to_goal_in_next_room
-//    current_room.available_exits.find { |exit| send("room_#{exit}").position
-//    == goal_position }
-//  end
 
 boost::optional<Direction>
 Solver::look_for_exit_leading_to_goal_in_next_room() {
@@ -96,33 +68,11 @@ Solver::look_for_exit_leading_to_goal_in_next_room() {
   return boost::none;
 }
 
-// def solve_maze
-//       self.class.log.info 'Maze is now being solved,please wait.'
-//       reset_rooms_visits_from
-//       until current_position == goal_position
-//         if use_smart_strategy_to_choose_next_forward_move
-//           next_direction = use_smart_strategy_to_choose_next_forward_move
-//           next_room = send "room_#{next_direction}"
-//           current_room.used_exits << next_direction
-//           path << next_room.position
-//           visited_positions << next_room.position
-//           next_room.visits_from << OPPOSITE_DIRECTION[next_direction]
-//         else # go back
-//           go_back_to_previous_visited_room
-//           path << current_room.position
-//         end
-//       end
-//
-//       self.class.log.info "Solver Path:   #{path.map { |p| [p.x, p.y]
-//       }.inspect}"
-//       self.class.log.info "Maze Solved after #{path.size} steps"
-//     end
-
 void Solver::solve_maze() {
-  logVar("", "Maze is now being solved, please wait.");
   reset_maze();
+  printf("Started solving  maze of %lu rooms.\n", _maze.rooms().size());
+  auto start = std::chrono::high_resolution_clock::now();
   while (*(current_position()) != _goal_position) {
-    logVar("", "While loop started");
     auto current_position_ = current_position();
     auto current_room_ = current_room();
 
@@ -142,18 +92,18 @@ void Solver::solve_maze() {
       _visited_positions.push_back((**next_room_).position());
       (**next_room_)
           .visits_from()
-          .push_back(maze::opposite_direction2.at(next_direction_));
+          .push_back(maze::opposite_direction.at(next_direction_));
 
     } else {
-      logVar("", "GOING BACK");
       go_back_to_previous_visited_room();
       _path.push_back((**current_room()).position());
     };  // if
 
   };  // while
 
-  logVar("", "Maze solved in :");
-  logVar(_path.size(), " steps: ");
+  auto end = std::chrono::high_resolution_clock::now();
+  auto execution_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+  printf("Maze solved in %lu steps, %lu.%lu seconds. \n", _path.size(), execution_time/1000, execution_time%1000 );
 }
 
 }  // namespace maze

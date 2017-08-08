@@ -1,11 +1,11 @@
 
 #include "maze/base.h"
 #include <iostream>
-
 #include "maze/room.h"
-using namespace utils;
-namespace maze {
 
+using namespace utils;
+
+namespace maze {
 
 std::map<Direction, std::string> direction_name{
     {Direction::LEFT, "LEFT"},
@@ -14,7 +14,11 @@ std::map<Direction, std::string> direction_name{
     {Direction::DOWN, "DOWN"},
 };
 
-
+const std::map<Direction, Direction> opposite_direction{
+    {Direction::LEFT, Direction::RIGHT},
+    {Direction::RIGHT, Direction::LEFT},
+    {Direction::UP, Direction::DOWN},
+    {Direction::DOWN, Direction::UP}};
 
 
 void logDirVector(const std::vector<Direction>& v, std::string message) {
@@ -27,10 +31,12 @@ void logDirVector(const std::vector<Direction>& v, std::string message) {
 }
 }
 
-
-bool maze::operator== (const maze::Position& lhs, const maze::Position& rhs) { return (lhs.x == rhs.x && lhs.y == rhs.y);}
-bool maze::operator!= (const maze::Position& lhs, const maze::Position& rhs) { return (lhs.x != rhs.x || lhs.y != rhs.y);}
-
+bool maze::operator==(const maze::Position& lhs, const maze::Position& rhs) {
+  return (lhs.x == rhs.x && lhs.y == rhs.y);
+}
+bool maze::operator!=(const maze::Position& lhs, const maze::Position& rhs) {
+  return (lhs.x != rhs.x || lhs.y != rhs.y);
+}
 
 std::ostream& operator<<(std::ostream& stream, const maze::Position& pos) {
   std::printf("Point x: %d, y: %d", pos.x, pos.y);
@@ -47,5 +53,3 @@ std::ostream& operator<<(std::ostream& stream,
   std::cout << maze::direction_name[direction];
   return stream;
 }
-
-

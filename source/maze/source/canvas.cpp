@@ -1,11 +1,9 @@
 
-//#include <memory>  // unique_ptr
 #include "maze/canvas.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <boost/optional.hpp>
 
-// #include <VertexArray.hpp>
 using namespace maze;
 using namespace utils;
 
@@ -47,7 +45,7 @@ void Canvas::draw_path(sf::RenderWindow& window, Position start_position, Positi
         draw_built_maze(window);
        };
 
-    // draw builder
+    // draw path
     position = !path.empty() ? path.front() : NULL_POSITION;
     if (!is_null(position)) _visited_positions.push_back(position);
     if (!path.empty()) path.erase(path.begin());
@@ -65,7 +63,6 @@ bool Canvas::is_null(const Position& position) {
   return (position == NULL_POSITION);
 }
 
-// Member functions
 int Canvas::to_canvas_coordinate(int room_coordinate) {
   return (room_coordinate - 1) * ROOM_SIZE;
 }
@@ -86,7 +83,7 @@ void Canvas::draw_solved_maze(sf::RenderWindow& window) {
   }
 }
 
-void Canvas::draw_room(sf::RenderWindow& window, const Room& room,
+void Canvas::draw_room(sf::RenderWindow& window,  Room& room,
                        const int size, const sf::Color& color) {
   auto canvas_x = to_canvas_coordinate(room.x());
   auto canvas_y = to_canvas_coordinate(room.y());
@@ -136,13 +133,13 @@ void Canvas::draw_position(sf::RenderWindow& window, const Room& room,
   window.draw(quad);
 }
 
-void Canvas::color_room(sf::RenderWindow& window, const Room& room,
+void Canvas::color_room(sf::RenderWindow& window, Room& room,
                         const int size, const sf::Color& color) {
   draw_room(window, room, size, color);
   draw_walls(window, room);
 }
 
-void Canvas::draw_wall(sf::RenderWindow& window, const Room& room,
+void Canvas::draw_wall(sf::RenderWindow& window,  Room& room,
                        const Direction side, const sf::Color& color) {
   auto canvas_x = to_canvas_coordinate(room.x());
   auto canvas_y = to_canvas_coordinate(room.y());
@@ -202,7 +199,7 @@ void Canvas::draw_wall(sf::RenderWindow& window, const Room& room,
   window.draw(quad);
 }
 
-void Canvas::draw_walls(sf::RenderWindow& window, const Room& room,
+void Canvas::draw_walls(sf::RenderWindow& window, Room& room,
                         const sf::Color& color) {
   for (auto side : DIRECTIONS) {
     auto exits = room.available_exits();
@@ -212,7 +209,7 @@ void Canvas::draw_walls(sf::RenderWindow& window, const Room& room,
   };
 }
 
-void Canvas::break_walls(sf::RenderWindow& window, const Room& room,
+void Canvas::break_walls(sf::RenderWindow& window, Room& room,
                          const sf::Color& color) {
   for (auto side : DIRECTIONS) {
     auto exits = room.available_exits();
@@ -222,7 +219,7 @@ void Canvas::break_walls(sf::RenderWindow& window, const Room& room,
   };
 }
 
-void Canvas::draw_all_walls(sf::RenderWindow& window, const Room& room,
+void Canvas::draw_all_walls(sf::RenderWindow& window, Room& room,
                             const sf::Color& color) {
   for (auto side : DIRECTIONS) {
     draw_wall(window, room, side, color);

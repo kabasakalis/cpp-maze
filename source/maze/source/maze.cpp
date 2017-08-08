@@ -1,16 +1,13 @@
+
 #include "maze/maze.h"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <memory>  // unique_ptr
 #include "maze/room.h"
-// #include "boost/multi_array.hpp"
-
 #include "maze/utils.h"
 using namespace utils;
 namespace maze {
-
-
 
 // Constructor
 Maze::Maze(int columns, int rows) : _columns{columns}, _rows{rows}  {
@@ -22,8 +19,6 @@ Maze::Maze(int columns, int rows) : _columns{columns}, _rows{rows}  {
     }
   }
 }
-
-// Maze::Maze() {}
 
 boost::optional<Room*>
 Maze::find_room(const Position& position) const  {
@@ -37,21 +32,6 @@ Maze::find_room(const Position& position) const  {
   return boost::none;
 };
 
-
-boost::optional< Room*>
-Maze::fr(const Position& position)   {
-  auto it = find_if(_rooms.begin(), _rooms.end(), [position]( Room& room) {
-    return room.position() == position;
-  });
-  if (it != _rooms.end()) {
-    boost::optional<Room*> lala =  &(*it);
-    return lala;
-  }
-  return boost::none;
-};
-
-
-
 boost::optional<Room*>
 Maze::find_room(int x, int y)  {
   Position position{x, y};
@@ -62,24 +42,9 @@ bool Maze::all_rooms_visited() const{
     return std::all_of(_rooms.begin(), _rooms.end(),
                        [](Room room) { return room.visited(); });};
 
-
- std::vector<Room>&
+std::vector<Room>&
 Maze::rooms()  { return _rooms;}
-
-
-// Rooms Maze::rooms() {
-//   // std::vector<Room*> valid_rooms;
-//   Rooms valid_rooms;
-//
-//
-// return _rooms;
-// };
-
-
-
-
 const int& Maze::rows() const { return _rows; }
 const int& Maze::columns() const {return _columns;}
-
 
 }  // namespace maze
