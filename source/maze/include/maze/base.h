@@ -30,13 +30,13 @@ class Position {
   friend bool operator!=(const maze::Position&, const maze::Position&);
 };
 
-MAZE_API void logDirVector(const std::vector<Direction>&, std::string);
+ void logDirVector(const std::vector<Direction>&, std::string);
 }  // namespace maze
 
-MAZE_API bool maze::operator==(const maze::Position&,
+bool maze::operator==(const maze::Position&,
                                const maze::Position& rhs);
-MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Position&);
-MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Room&);
-MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Direction);
+std::ostream& operator<<(std::ostream& stream, const maze::Position&);
+std::ostream& operator<<(std::ostream& stream, const maze::Room&);
+std::ostream& operator<<(std::ostream& stream, const maze::Direction);
 
 #include "maze/utils.h"

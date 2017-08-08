@@ -12,7 +12,7 @@ class MAZE_API Solver : public Builder {
   explicit Solver(const Maze& maze, const Position& starting_position,
                   const Position& goal_position);
 
-  MAZE_API void solve_maze();
+  void solve_maze();
 
  private:
   boost::optional<Direction> use_smart_strategy_to_choose_next_forward_move();

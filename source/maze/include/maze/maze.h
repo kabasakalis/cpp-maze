@@ -13,12 +13,12 @@ class MAZE_API Maze final {
  public:
   explicit Maze(int rows = 10, int columns = 10);  // constructor
 
-  MAZE_API boost::optional<Room*> find_room(const Position& position) const;
-  MAZE_API boost::optional<Room*> find_room(int x, int y);
-  MAZE_API std::vector<Room>& rooms();
-  MAZE_API const int& rows() const;
-  MAZE_API const int& columns() const;
-  MAZE_API bool all_rooms_visited() const;
+  boost::optional<Room*> find_room(const Position& position) const;
+  boost::optional<Room*> find_room(int x, int y);
+  std::vector<Room>& rooms();
+  const int& rows() const;
+  const int& columns() const;
+  bool all_rooms_visited() const;
 
  private:
   int _columns;

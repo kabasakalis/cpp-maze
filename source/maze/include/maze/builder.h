@@ -14,9 +14,9 @@ class MAZE_API Builder {
   explicit Builder(const Maze&);  // constructor
   virtual ~Builder() = default;   // dtor
 
-  MAZE_API void build_maze();
-  MAZE_API virtual const Maze& maze() const;
-  MAZE_API virtual const std::vector<Position>& path() const;
+  void build_maze();
+  virtual const Maze& maze() const;
+  virtual const std::vector<Position>& path() const;
 
  protected:
   virtual boost::optional<const Position> next_position(const Direction&,
