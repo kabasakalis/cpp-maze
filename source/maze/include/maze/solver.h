@@ -9,6 +9,8 @@ namespace maze {
 
 class MAZE_API Solver : public Builder {
  public:
+
+  explicit Solver();             // default constructor
   explicit Solver(const Maze& maze, const Position& starting_position,
                   const Position& goal_position);
 

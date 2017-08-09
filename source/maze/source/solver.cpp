@@ -7,6 +7,9 @@
 #include "maze/builder.h"
 namespace maze {
 
+// Default constructor
+Solver::Solver(){};
+
 // Constructor
 Solver::Solver(const Maze& maze, const Position& starting_position,
                const Position& goal_position)
