@@ -26,17 +26,18 @@ const extern std::map<Direction, Direction> opposite_direction;
 class Position {
  public:
   int x, y;
-  friend bool operator==(const maze::Position&, const maze::Position&);
-  friend bool operator!=(const maze::Position&, const maze::Position&);
+  // friend bool operator==(const maze::Position&, const maze::Position&);
+  // friend bool operator!=(const maze::Position&, const maze::Position&);
 };
 
- void logDirVector(const std::vector<Direction>&, std::string);
+MAZE_API  bool operator==(const maze::Position&, const maze::Position& rhs);
+MAZE_API  bool operator!=(const maze::Position&, const maze::Position& rhs);
+
+MAZE_API extern void logDirVector(const std::vector<Direction>&, std::string);
 }  // namespace maze
 
-bool maze::operator==(const maze::Position&,
-                               const maze::Position& rhs);
-std::ostream& operator<<(std::ostream& stream, const maze::Position&);
-std::ostream& operator<<(std::ostream& stream, const maze::Room&);
-std::ostream& operator<<(std::ostream& stream, const maze::Direction);
+MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Position&);
+MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Room&);
+MAZE_API std::ostream& operator<<(std::ostream& stream, const maze::Direction);
 
 #include "maze/utils.h"

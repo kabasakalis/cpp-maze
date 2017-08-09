@@ -21,6 +21,7 @@ message(STATUS "Test ${target}")
 set(sources
     main.cpp
     maze_test.cpp
+    room_test.cpp
 )
 
 

@@ -1,9 +1,6 @@
 
 #include "maze/maze.h"
 #include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <memory>  // unique_ptr
 #include "maze/room.h"
 #include "maze/utils.h"
 using namespace utils;

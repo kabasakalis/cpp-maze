@@ -20,7 +20,6 @@ const std::map<Direction, Direction> opposite_direction{
     {Direction::UP, Direction::DOWN},
     {Direction::DOWN, Direction::UP}};
 
-
 void logDirVector(const std::vector<Direction>& v, std::string message) {
   std::cout << message << std::endl;
   for (auto it = v.begin(); it != v.end(); ++it) {
@@ -29,13 +28,14 @@ void logDirVector(const std::vector<Direction>& v, std::string message) {
   }
   std::cout << "\n";
 }
-}
 
-bool maze::operator==(const maze::Position& lhs, const maze::Position& rhs) {
+bool operator==(const maze::Position& lhs, const maze::Position& rhs) {
   return (lhs.x == rhs.x && lhs.y == rhs.y);
 }
-bool maze::operator!=(const maze::Position& lhs, const maze::Position& rhs) {
+
+bool operator!=(const maze::Position& lhs, const maze::Position& rhs) {
   return (lhs.x != rhs.x || lhs.y != rhs.y);
+}
 }
 
 std::ostream& operator<<(std::ostream& stream, const maze::Position& pos) {
