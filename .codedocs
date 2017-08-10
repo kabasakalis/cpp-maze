@@ -1,0 +1,118 @@
+# Example .codedocs Configuration File
+#
+# Rename this example to '.codedocs' and put it in the root directory of your
+# repository. This file is optional, documentation will still be generated
+# without it using sensible defaults.
+
+#---------------------------------------------------------------------------
+# CodeDocs Configuration
+#---------------------------------------------------------------------------
+
+# Include the Doxygen configuration from another file.
+# The file must be a relative path with respect to the root of the repository.
+
+# DOXYFILE =
+
+# Specify external repository to link documentation with.
+# This is similar to Doxygen's TAGFILES option, but will automatically link to
+# tags of other repositories already using CodeDocs. List each repository to
+# link with by giving its location in the form of owner/repository.
+# For example:
+#   TAGLINKS = doxygen/doxygen CodeDocs/osg
+# Note: these repositories must already be built on CodeDocs.
+
+TAGLINKS =
+
+#---------------------------------------------------------------------------
+# Doxygen Configuration
+#---------------------------------------------------------------------------
+
+# Doxygen configuration may also be placed in this file.
+# Currently, the following Doxygen configuration options are available. Refer
+# to http://doxygen.org/manual/config.html for detailed explanation of the
+# options. To request support for more options, contact support@codedocs.xyz.
+#
+ABBREVIATE_BRIEF       = "The $name class " \
+                         "The $name widget " \
+                         "The $name file " \
+                         is \
+                         provides \
+                         specifies \
+                         contains \
+                         represents \
+                         a \
+                         an \
+                         the
+ALIASES =
+ALPHABETICAL_INDEX     = YES
+ALWAYS_DETAILED_SEC    = NO
+CASE_SENSE_NAMES       = NO
+CLASS_DIAGRAMS         = YES
+DISABLE_INDEX          = NO
+DISTRIBUTE_GROUP_DOC   = NO
+EXAMPLE_PATH =
+EXCLUDE =
+EXCLUDE_PATTERNS       =  */tests/*
+EXCLUDE_SYMBOLS =
+EXTENSION_MAPPING =
+EXTRACT_LOCAL_CLASSES  = NO
+FILE_PATTERNS          = *.c \
+                         *.cc \
+                         *.cxx \
+                         *.c++ \
+                         *.java \
+                         *.ii \
+                         *.ixx \
+                         *.ipp \
+                         *.i++ \
+                         *.inl \
+                         *.h \
+                         *.hh \
+                         *.hxx \
+                         *.hpp \
+                         *.h++ \
+                         *.idl \
+                         *.odl \
+                         *.cs \
+                         *.php \
+                         *.php3 \
+                         *.inc \
+                         *.m \
+                         *.mm \
+                         *.dox
+GENERATE_TAGFILE =
+GENERATE_TREEVIEW      = NO
+# HIDE_COMPOUND_REFERENCE =
+HIDE_SCOPE_NAMES       = NO
+EXPAND_AS_DEFINED =
+PREDEFINED             = GLOW_API= GLOWUTILS_API= GLOWWINDOW_API=
+ENABLE_PREPROCESSING = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_UNDOC_MEMBERS     = YES
+HTML_TIMESTAMP         = YES
+RECURSIVE = YES
+INPUT = source/baselib/include/baselib/  \
+        source/maze/include/maze/        \
+
+
+
+INLINE_GROUPED_CLASSES = NO
+INPUT_ENCODING         = UTF-8
+INTERNAL_DOCS          = NO
+OPTIMIZE_OUTPUT_FOR_C  = NO
+PROJECT_NAME           = "C++ Maze"
+PROJECT_BRIEF          = "Building and Solving a maze with C++"
+PROJECT_NUMBER         = "a2a261f059dc"
+SHORT_NAMES            = NO
+# SHOW_FILES =
+
+SHOW_INCLUDE_FILES     = YES
+SHOW_NAMESPACES        = YES
+SORT_BRIEF_DOCS        = NO
+SORT_BY_SCOPE_NAME     = NO
+SORT_MEMBER_DOCS       = NO
+STRICT_PROTO_MATCHING  = NO
+TYPEDEF_HIDES_STRUCT   = NO
+
+USE_MDFILE_AS_MAINPAGE = YES
+VERBATIM_HEADERS       = YES

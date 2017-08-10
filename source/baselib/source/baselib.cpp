@@ -14,8 +14,7 @@ void printInfo()
 {
     std::string dataPath = "data";
 
-    std::cout << "baselib:printInfo" << std::endl;
-    std::cout << "PROJECT METADATA" << std::endl;
+    std::cout << "C++ Maze METADATA" << std::endl;
 
     std::cout << "========================================" << std::endl;
     std::cout << "Project Name:             " << MAZE_PROJECT_NAME  << std::endl;
@@ -38,22 +37,23 @@ void printInfo()
     std::cout << "Data path:    " << dataPath << std::endl;
     std::cout << std::endl;
 
+    std::cout << "======================================== \n" << std::endl;
     // Read file
-    std::cout << "Data directory access" << std::endl;
-    std::string fileName = dataPath + "/DATA_FOLDER.txt";
-    std::cout << "Reading from '" << fileName << "': " << std::endl;
-    std::cout << std::endl;
-
-    std::ifstream f(fileName);
-    if (f.is_open()) {
-        std::string line;
-        while (getline(f, line)) {
-            std::cout << line << '\n';
-        }
-        f.close();
-    } else {
-        std::cout << "Unable to open file." << std::endl;
-    }
+    // std::cout << "Data directory access" << std::endl;
+    // std::string fileName = dataPath + "/DATA_FOLDER.txt";
+    // std::cout << "Reading from '" << fileName << "': " << std::endl;
+    // std::cout << std::endl;
+    //
+    // std::ifstream f(fileName);
+    // if (f.is_open()) {
+    //     std::string line;
+    //     while (getline(f, line)) {
+    //         std::cout << line << '\n';
+    //     }
+    //     f.close();
+    // } else {
+    //     std::cout << "Unable to open file." << std::endl;
+    // }
 
 }
 

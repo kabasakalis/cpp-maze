@@ -15,6 +15,7 @@ using namespace maze;
 using namespace utils;
 
 int main(int argc, char* argv[]) {
+   baselib::printInfo();
   // Argument guard, 3 arguments are needed. (The program name is the first argument always).
   if (argc != 4) {
     printf("Invalid number of arguments. \n");
