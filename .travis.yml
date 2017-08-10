@@ -34,11 +34,11 @@ before_script:
   - if [ $CMAKE_CONFIGURATION == debug ]; then ./configure debug; fi
 
 script:
-  - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]];
-      then
-        echo "Don't build on coverty_scan branch.";
-        exit 0;
-    fi
+  # - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]];
+  #     then
+  #       echo "Don't build on coverty_scan branch.";
+  #       exit 0;
+  #   fi
   - cmake --build $BUILD_DIR
   - cmake --build $BUILD_DIR --target test
   - cmake --build $BUILD_DIR --target check-all
