@@ -31,7 +31,7 @@ void Canvas::draw_path(sf::RenderWindow& window, Position start_position, Positi
       if (event.type == sf::Event::Closed) window.close();
     }
     window.clear(sf::Color::Black);
-    Position position{NULL_POSITION};
+    Position position{NULL_POSITION.x, NULL_POSITION.y};
     boost::optional<Room*> room;
     // draw rooms
        if (mode == Mode::SOLVE) {
