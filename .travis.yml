@@ -1,5 +1,4 @@
 language: cpp
-
 sudo: required
 dist: trusty
 
@@ -8,11 +7,12 @@ os:
   - osx
 
 compiler:
-  - gcc
+  # - gcc
   - clang
 
 env:
   global:
+    - COMPILER_NAME=clang CXX=clang++-3.8 CC=clang-3.8
     - CMAKE_OPTIONS="-DOPTION_BUILD_EXAMPLES=On"
     - secure: "kuCyatatsoOwecL0xJJJ6fq03z28HzMJrR7BKHCt6kfdvytEOs/UrmpS+uVtoSlTv5b/wqip9k9Zy7RF5EYhQOHeb5bwEjnamNRn5cTnujbFMYyIvwM3qOtcmG0QPdaOKCD0obmxeB+yjiL+SSxZ+0n392Qrj60YUzSIeIOhecaajydjSDV2l0ObJ6MG1+dw47NeSu+jiWVmMeuZhPAlUGRrQq986qbpCNWi/5qoOXHtJCxS97pg4qS5xbhXJ9GuouKvoxBlYeF5Mux3/AtzGHZ1r6Ru1EqMuFsrRLdaPamTDnCThaNihGFTo86Arm2+vXbKF/Kctcj5aH2PwKUV0b1zYao1+WDtKn0eVaUJ9Wn1zE2zoQ/7S781uRp0Hfatf2qqTrZdGSQSWEb5/oAuvm0BCQmloEJzG93iLNKC6la1rB9p1DtjeO9qRiLWyc9nt0zaLhdBFIPfRKEF12u32dqNQnP0mMzufkvvJ8iR8XxQgIR4jqSeMkZNqxKjEb3Pxp9/EkwtIWzvFcMigPkEylTuHTQw1IGMB9Qryn3E6cHjJ8LtazbKAT5aXJllBvPtEdYaIyRP5F7QiC0apr5o/pmZ9jVwq6OleOx7ui7uxTxRteaOCNiIi3MFvyv3Yx/F6NX44Db/BfeHQqy2v7Pyp78eMAMRhGLQl1pGWADbBCQ="
   matrix:
@@ -25,8 +25,18 @@ matrix:
     compiler: gcc
 
 before_install:
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install -qq cmake  libboost-all-dev libsfml-dev qt5-default cppcheck clang-tidy-3.8; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install qt5 cppcheck; fi
+  # C++14
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
+
+install:
+  # clang
+  - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 90
+  - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 90
+  - sudo apt-get install -y libc++-dev libc++abi-dev
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install -qq cmake  libboost-all-dev libsfml-dev  cppcheck clang-tidy-3.8; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install  cppcheck; fi
+
 
 before_script:
   - ./configure
@@ -34,11 +44,11 @@ before_script:
   - if [ $CMAKE_CONFIGURATION == debug ]; then ./configure debug; fi
 
 script:
-  # - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]];
-  #     then
-  #       echo "Don't build on coverty_scan branch.";
-  #       exit 0;
-  #   fi
+  - if [[ "${COVERITY_SCAN_BRANCH}" == 1 ]];
+      then
+        echo "Don't build on coverty_scan branch.";
+        exit 0;
+    fi
   - cmake --build $BUILD_DIR
   - cmake --build $BUILD_DIR --target test
   - cmake --build $BUILD_DIR --target check-all
@@ -49,6 +59,10 @@ branches:
     - master
     - coverity_scan
 addons:
+  apt:
+    packages:
+      - clang-3.8
+    sources: *sources
   coverity_scan:
     project:
       name: "drumaddict/cpp-maze"
@@ -57,3 +71,10 @@ addons:
     build_command_prepend: "cd ."
     build_command:   cmake --build $BUILD_DIR
     branch_pattern: coverity_scan
+
+
+
+
+
+
+
