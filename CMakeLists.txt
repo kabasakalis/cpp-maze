@@ -37,14 +37,14 @@ include(cmake/HealthCheck.cmake)
 include(cmake/GenerateTemplateExportHeader.cmake)
 
 
-# if(NOT DEFINED $ENV{TRAVIS})
-# # HunterGate
-# include(cmake/HunterGate.cmake)
-# HunterGate(
-#     URL "https://github.com/ruslo/hunter/archive/v0.19.36.tar.gz"
-#     SHA1 "db6f5483795c56968fe628b3cc9791ec6627bdfc"
-# )
-# endif()
+if(NOT "$ENV{TRAVIS}")
+# HunterGate
+include(cmake/HunterGate.cmake)
+HunterGate(
+    URL "https://github.com/ruslo/hunter/archive/v0.19.36.tar.gz"
+    SHA1 "db6f5483795c56968fe628b3cc9791ec6627bdfc"
+)
+endif()
 
 #
 # Project description and (meta) information
@@ -99,10 +99,10 @@ set(IDE_FOLDER "")
 project(${META_PROJECT_NAME} C CXX)
 
 
-# if(NOT DEFINED $ENV{TRAVIS})
-# # Add Hunter Packages
-#   hunter_add_package(Boost COMPONENTS)
-# endif()
+if(NOT "$ENV{TRAVIS}")
+# Add Hunter Packages
+  hunter_add_package(Boost COMPONENTS)
+endif()
 
 
 
