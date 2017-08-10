@@ -14,7 +14,7 @@ namespace maze {
 Room::Room() {}
 
 // Constructor
-Room::Room(const Position& t_position) : _position{t_position} {
+Room::Room(const Position& t_position) : _position{t_position.x, t_position.y} {
   _x = _position.x;
   _y = _position.y;
 }
