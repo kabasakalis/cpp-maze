@@ -97,8 +97,12 @@ set(IDE_FOLDER "")
 project(${META_PROJECT_NAME} C CXX)
 
 
+if(NOT DEFINED $ENV{TRAVIS})
 # Add Hunter Packages
-hunter_add_package(Boost COMPONENTS)
+  hunter_add_package(Boost COMPONENTS)
+endif()
+
+
 
 # Set output directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
