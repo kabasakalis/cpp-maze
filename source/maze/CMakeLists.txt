@@ -5,14 +5,15 @@
 
 # find_package(THIRDPARTY REQUIRED)
 
+
 # Boost
-find_package(Boost CONFIG REQUIRED)
+find_package(Boost CONFIG )
 
 # SFML
 find_package(SFML 2 REQUIRED network audio graphics window system)
-if (NOT SFML_FOUND)
-  message(FATAL_ERROR "Package SFML not found")
-endif (NOT SFML_FOUND)
+# if (NOT SFML_FOUND)
+  # message(FATAL_ERROR "Package SFML not found")
+# endif (NOT SFML_FOUND)
 
 #
 # Library name and options
