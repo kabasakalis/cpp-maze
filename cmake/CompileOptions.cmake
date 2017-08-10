@@ -137,6 +137,9 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCH
         -Wsign-conversion
         # -Wmisleading-indentation
 
+        # clang
+        -stdlib=libc++
+
         $<$<CXX_COMPILER_ID:GNU>:
             -Wmaybe-uninitialized
 
