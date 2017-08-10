@@ -36,13 +36,15 @@ include(cmake/GetGitRevisionDescription.cmake)
 include(cmake/HealthCheck.cmake)
 include(cmake/GenerateTemplateExportHeader.cmake)
 
+
+if(NOT DEFINED $ENV{TRAVIS})
 # HunterGate
 include(cmake/HunterGate.cmake)
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.19.36.tar.gz"
     SHA1 "db6f5483795c56968fe628b3cc9791ec6627bdfc"
 )
-
+endif()
 
 #
 # Project description and (meta) information
