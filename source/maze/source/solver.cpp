@@ -13,7 +13,7 @@ Solver::Solver(){};
 // Constructor
 Solver::Solver(const Maze& maze, const Position& starting_position,
                const Position& goal_position)
-    : _starting_position{starting_position}, _goal_position{goal_position} {
+    : _starting_position{starting_position.x, starting_position.y}, _goal_position{goal_position.x, goal_position.y} {
   _maze = maze;
 }
 
