@@ -139,7 +139,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCH
 
         # clang
         -stdlib=libc++
-        # -stdlib=libstdc++
+        -stdlib=libstdc++
         $<$<CXX_COMPILER_ID:GNU>:
             -Wmaybe-uninitialized
 
