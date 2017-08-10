@@ -25,8 +25,8 @@ matrix:
     compiler: gcc
 
 before_install:
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install -qq cmake libboost-all-dev  libsfml-dev cppcheck clang-tidy-3.8; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install cppcheck; fi
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install -qq cmake  libboost-all-dev libsfml-dev qt5-default cppcheck clang-tidy-3.8; fi
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install qt5 cppcheck; fi
 
 before_script:
   - ./configure
