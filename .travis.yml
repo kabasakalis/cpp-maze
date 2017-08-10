@@ -13,7 +13,6 @@ compiler:
 
 env:
   global:
-    - TRAVIS = 1
     - CMAKE_OPTIONS="-DOPTION_BUILD_EXAMPLES=On"
     - secure: "kuCyatatsoOwecL0xJJJ6fq03z28HzMJrR7BKHCt6kfdvytEOs/UrmpS+uVtoSlTv5b/wqip9k9Zy7RF5EYhQOHeb5bwEjnamNRn5cTnujbFMYyIvwM3qOtcmG0QPdaOKCD0obmxeB+yjiL+SSxZ+0n392Qrj60YUzSIeIOhecaajydjSDV2l0ObJ6MG1+dw47NeSu+jiWVmMeuZhPAlUGRrQq986qbpCNWi/5qoOXHtJCxS97pg4qS5xbhXJ9GuouKvoxBlYeF5Mux3/AtzGHZ1r6Ru1EqMuFsrRLdaPamTDnCThaNihGFTo86Arm2+vXbKF/Kctcj5aH2PwKUV0b1zYao1+WDtKn0eVaUJ9Wn1zE2zoQ/7S781uRp0Hfatf2qqTrZdGSQSWEb5/oAuvm0BCQmloEJzG93iLNKC6la1rB9p1DtjeO9qRiLWyc9nt0zaLhdBFIPfRKEF12u32dqNQnP0mMzufkvvJ8iR8XxQgIR4jqSeMkZNqxKjEb3Pxp9/EkwtIWzvFcMigPkEylTuHTQw1IGMB9Qryn3E6cHjJ8LtazbKAT5aXJllBvPtEdYaIyRP5F7QiC0apr5o/pmZ9jVwq6OleOx7ui7uxTxRteaOCNiIi3MFvyv3Yx/F6NX44Db/BfeHQqy2v7Pyp78eMAMRhGLQl1pGWADbBCQ="
   matrix:
