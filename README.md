@@ -27,7 +27,7 @@ Build and solve a virtual maze with C++.
 The codebase was developed and tested on Ubuntu 16.04.
 
 * [CMake, at least v3.0](https://cmake.org/)
-*  Compiler clang 3.8.0, using gcc 6.2.0  standard library
+*  Compiler clang 3.8.0, using default gcc 6.2.0 standard library, (not libc++ of LLVM).
 * [SFML]( https://www.sfml-dev.org/index.php)
 * [Boost](http://www.boost.org/)
 
