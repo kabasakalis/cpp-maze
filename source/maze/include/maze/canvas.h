@@ -2,8 +2,8 @@
 #pragma once
 
 #include <maze/maze_api.h>
-#include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include  "maze/maze.h"
 
 using namespace maze;

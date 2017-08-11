@@ -1,4 +1,5 @@
 
+#include <SFML/Window.hpp>
 #include <iostream>
 #include <sstream>
 #include <boost/optional/optional_io.hpp>
@@ -8,9 +9,8 @@
 #include "maze/maze.h"
 #include "maze/solver.h"
 #include "maze/canvas.h"
-#include <SFML/Window.hpp>
 
-using namespace std;
+// using namespace std;
 using namespace maze;
 using namespace utils;
 
