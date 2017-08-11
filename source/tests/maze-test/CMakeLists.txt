@@ -19,7 +19,7 @@ message(STATUS "Test ${target}")
 #
 
 set(sources
-    main_test.cpp
+    main.cpp
     maze_test.cpp
     room_test.cpp
     builder_test.cpp
