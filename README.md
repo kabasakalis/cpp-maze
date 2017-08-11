@@ -6,13 +6,13 @@
 Build and solve a virtual maze with C++.
 
 
-| Service | System | Compiler | Status |
-| ------- | ------ | -------- | -----: |
-|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) |
-|  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | macOS | AppleClang 7.3 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) |
-|  [Coverity](https://scan.coverity.com/projects/drumaddict-cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Coverity Build Status](https://scan.coverity.com/projects/13445/badge.svg)](https://scan.coverity.com/projects/drumaddict-cpp-maze) |
-|  [CodeCov](https://codecov.io/gh/drumaddict/cpp-maze) |   |  | [![Test Coverage](https://codecov.io/gh/drumaddict/cpp-maze/branch/master/graph/badge.svg)](https://codecov.io/gh/drumaddict/cpp-maze) |
-|  [Codedocs](https://codedocs.xyz/drumaddict/cpp-maze/) |    |   | [![Documentation](https://codedocs.xyz/drumaddict/cpp-maze.svg)](https://codedocs.xyz/drumaddict/cpp-maze/) |
+<!-- | Service | System | Compiler | Status | -->
+<!-- | ------- | ------ | -------- | -----: | -->
+<!-- |  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) | -->
+<!-- |  [Travis-CI](https://travis-ci.org/drumaddict/cpp-maze) | macOS | AppleClang 7.3 | [![Build Status](https://travis-ci.org/drumaddict/cpp-maze.svg?branch=master)](https://travis-ci.org/drumaddict/cpp-maze) | -->
+<!-- |  [Coverity](https://scan.coverity.com/projects/drumaddict-cpp-maze) | Ubuntu 14.04 | GCC 4.8, Clang 3.5 | [![Coverity Build Status](https://scan.coverity.com/projects/13445/badge.svg)](https://scan.coverity.com/projects/drumaddict-cpp-maze) | -->
+<!-- |  [CodeCov](https://codecov.io/gh/drumaddict/cpp-maze) |   |  | [![Test Coverage](https://codecov.io/gh/drumaddict/cpp-maze/branch/master/graph/badge.svg)](https://codecov.io/gh/drumaddict/cpp-maze) | -->
+<!-- |  [Codedocs](https://codedocs.xyz/drumaddict/cpp-maze/) |    |   | [![Documentation](https://codedocs.xyz/drumaddict/cpp-maze.svg)](https://codedocs.xyz/drumaddict/cpp-maze/) | -->
 
 
 ###### A 73 x 38 Maze, solving process. Solver is yellow dot.
@@ -27,7 +27,7 @@ Build and solve a virtual maze with C++.
 The codebase was developed and tested on Ubuntu 16.04.
 
 * [CMake, at least v3.0](https://cmake.org/)
-* C++ compiler, gcc or clang.
+*  Compiler clang 3.8.0, using gcc 6.2.0  standard library
 * [SFML]( https://www.sfml-dev.org/index.php)
 * [Boost](http://www.boost.org/)
 
