@@ -65,7 +65,7 @@ addons:
       - llvm-toolchain-precise-3.8
     packages:
       - clang-3.8
-      - g++-6
+      - g++-6.2
   coverity_scan:
     project:
       name: "drumaddict/cpp-maze"
