@@ -75,9 +75,3 @@ addons:
     build_command:   cmake --build $BUILD_DIR
     branch_pattern: coverity_scan
 
-
-
-
-
-
-
