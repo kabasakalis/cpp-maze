@@ -11,6 +11,7 @@ compiler:
   - clang
 
 env:
+  - MATRIX_EVAL="CC=clang-3.8 && CXX=clang++-3.8"
   global:
     - COMPILER_NAME=clang CXX=clang++-3.8 CC=clang-3.8
     # - CMAKE_OPTIONS="-DOPTION_BUILD_EXAMPLES=On"
@@ -28,11 +29,11 @@ before_install:
   # C++14
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
-
+  - eval "${MATRIX_EVAL}"
 install:
   # clang
-  - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 90
-  - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 90
+  # - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 90
+  # - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 90
   # - sudo apt-get install -y libc++-dev libc++abi-dev
   - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install -qq cmake  libboost-all-dev libsfml-dev  cppcheck clang-tidy-3.8; fi
   - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install  cppcheck; fi
@@ -60,9 +61,11 @@ branches:
     - coverity_scan
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.8
     packages:
       - clang-3.8
-    sources: *sources
   coverity_scan:
     project:
       name: "drumaddict/cpp-maze"
