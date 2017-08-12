@@ -36,7 +36,7 @@ addons:
     # Travis whitelist of packages.
     # https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
     packages:
-      - g++-7
+      - gcc-6.2
       - clang-3.8
       # - ninja-build
       # - lcov
