@@ -94,10 +94,6 @@ script:
 # notifications:
 #   email:
 #     recipients:
-#       - antiagainst@google.com
-#       - awoloszyn@google.com
-#       - deki@google.com
-#       - dneto@google.com
-#       - qining@google.com
+#       - kabasakalis@gmail.com
 #     on_success: change
 #     on_failure: always
